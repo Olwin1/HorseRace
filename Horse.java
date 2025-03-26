@@ -47,10 +47,16 @@ public class Horse
      * 
      * @param horseSymbol Will be used to determine how the horse is represented on the screen.  
      * @param horseName Is used as the name of the horse.   
-     * @param horseConfidence Determines the speed of the horse and likelihood of falling.  (from 0-1)   
+     * @param horseConfidence Determines the speed of the horse and likelihood of falling.     
+     * 
+     * @throws IllegalArgumentException Must be a value between 0 and 1 otherwise an [IllegalArgumentException] is thrown.  
      */
-    public Horse(char horseSymbol, String horseName, double horseConfidence)
+    public Horse(char horseSymbol, String horseName, double horseConfidence) throws IllegalArgumentException
     {
+        if(horseConfidence > 1 || horseConfidence < 0) {
+            throw new IllegalArgumentException("Confidence must be a value between 0 and 1.");
+        } 
+
         // Set the provided arguments to the corresponding instance variables
         this.horseSymbol = horseSymbol;
         this.horseConfidence = horseConfidence;
@@ -139,13 +145,17 @@ public class Horse
 
     /**
      * Setter to set a new horse confidence.  
-     * @param newConfidence 
-     * Must be a double between 0 and 1.  
+     * @param newConfidence  
      * A higher confidence means the horse runs faster but is also more prone to falling.  
      * A lower confidence means the horse runs slower but is more stable.  
+     * 
+     * @throws IllegalArgumentException If number is out of range.  Must be a double between 0 and 1.    
      */
-    public void setConfidence(double newConfidence)
+    public void setConfidence(double newConfidence) throws IllegalArgumentException
     {
+        if(newConfidence > 1 || newConfidence < 0) {
+            throw new IllegalArgumentException("Confidence must be a value between 0 and 1.");
+        } 
         this.horseConfidence = newConfidence;
     }
     
