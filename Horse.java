@@ -15,10 +15,14 @@ public class Horse
     /// Used to determine how the horse is represented on the screen. 
     private char horseSymbol;
 
-    // The name of the horse that will be announced upon victory.  
+    /// The name of the horse that will be announced upon victory.  
     private String horseName;
 
-    // How certain it is that the horse will win.  (from 0-1)
+    /// Determines the speed of the horse and likelihood of falling.  (from 0-1)
+    /// 
+    /// - A higher confidence means the horse runs faster but is also more prone to falling.  
+    /// - A lower confidence means the horse runs slower but is more stable.  
+
     private double horseConfidence;
 
     /////////////////////////////////////
@@ -32,7 +36,7 @@ public class Horse
      * 
      * @param horseSymbol Will be used to determine how the horse is represented on the screen.  
      * @param horseName Is used as the name of the horse.   
-     * @param horseConfidence How certain it is that the horse will win (from 0-1)   
+     * @param horseConfidence Determines the speed of the horse and likelihood of falling.  (from 0-1)   
      */
     public Horse(char horseSymbol, String horseName, double horseConfidence)
     {
@@ -52,7 +56,7 @@ public class Horse
     
     public double getConfidence()
     {
-        
+        return this.horseConfidence;
     }
     
     public int getDistanceTravelled()
@@ -62,12 +66,12 @@ public class Horse
     
     public String getName()
     {
-        
+        return this.horseName;
     }
     
     public char getSymbol()
     {
-        
+        return this.horseSymbol;
     }
     
     public void goBackToStart()
