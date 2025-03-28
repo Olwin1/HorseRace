@@ -118,6 +118,7 @@ public class Race
                 TimeUnit.MILLISECONDS.sleep(100);
             }catch(Exception e){}
         }
+        printVictor();
     }
     
     /**
@@ -165,6 +166,39 @@ public class Race
         {
             return false;
         }
+    }
+
+    // prints the victor of a race
+    private void printVictor() {
+        // gets a list of all the victors
+        ArrayList<Horse> victors = new ArrayList<>();
+        lanes.forEach((horse) -> {
+            if(horse != null && horse.getDistanceTravelled() == raceLength) {
+                victors.add(horse);
+            }
+        });
+
+        // Check if there is only 1 victor
+        if(victors.size() == 1) {
+            // Announce winner
+            System.out.println(String.format("%s has won the race!", victors.get(0).getName()));
+
+        // Check if nobody has won
+        } else if(victors.isEmpty()) {
+            // Announce no winner
+            System.out.print("Nobody has won.");
+
+        // Otherwise it must be a draw
+        } else {
+            // Announce winners
+            System.out.print("The race has resulted in a draw! The winners are as follows:\n");
+            victors.forEach((horse) -> {
+                System.out.println(horse.getName());
+            });
+            System.out.println("");
+
+        }
+
     }
     
     /***
