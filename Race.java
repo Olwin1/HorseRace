@@ -21,9 +21,14 @@ public class Race
      * Initially there are no horses in the lanes
      * 
      * @param distance the length of the racetrack (in metres/yards...)
+     * @exception IllegalArgumentException If the distance is 0 or less.  
      */
-    public Race(int distance)
+    public Race(int distance) throws IllegalArgumentException
     {
+        // If the distance is 0 or negative then throw an exception
+        if(distance <= 0) {
+            throw new IllegalArgumentException("Distance must be at least 1 or more. ");
+        }
         // initialise instance variables
         raceLength = distance;
         lanes = new ArrayList<>();
