@@ -76,15 +76,31 @@ public class Race
                 // While no hoese has finished yet. (Race is still running)
                 while (!finished.getFlag())
                 {
+                    // Create a flag to determine if all horses have fallen
+                    BooleanWrapper allFallen = new BooleanWrapper(true);
+                    
                     //move each horse by looping through ArrayList
                     lanes.forEach((Horse horse) -> {
                         if(horse != null) {
-                            moveHorse(horse);;
+                            moveHorse(horse);
+
+                            // Add a check to see if the horse has not fallen
+                            if(!horse.hasFallen()) {
+                                // if they haven't fallen then all the horses can't have fallen so set the flag to true
+                                allFallen.setFlag(false);
+                            }
                         }
                     });
+                    
                                 
                     //print the race positions
                     printRace();
+
+                    // If all horses have fallen then mark the race as finished.  
+                    if(allFallen.getFlag()) {
+                        finished.setFlag(true);
+                    }
+
                     
                     //if any of the three horses has won the race is finished
                     lanes.forEach((Horse horse) -> {
