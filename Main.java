@@ -1,7 +1,7 @@
 public class Main {
     public static void main(String[] args) {
         // testHorse();
-        Race race = new Race(100);
+        Race race = new Race(9);
         race.addHorse(new Horse('A', "Adi", 0.5), 1);
         race.addHorse(new Horse('B', "Bob", 0.25), 2);
         race.addHorse(new Horse('C', "Cob", 0.8), 3);
@@ -10,7 +10,7 @@ public class Main {
 
     public static void testHorse() {
         System.out.println("START OF TEST 1");
-        // TEST ONE
+        // TEST ONE5
         try {
             // This should be fine and create a horse with all the correct values
             Horse horseOne = new Horse('X', "JIM", 1);

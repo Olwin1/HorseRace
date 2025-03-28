@@ -1,19 +1,20 @@
 import java.util.concurrent.TimeUnit;
 import java.lang.Math;
+import java.util.ArrayList;
 
 /**
  * A three-horse race, each horse running in its own lane
  * for a given distance
  * 
  * @author McRaceface
- * @version 1.0
+ * @author Oliver Munn
+ * @version 1.1
  */
 public class Race
 {
     private int raceLength;
-    private Horse lane1Horse;
-    private Horse lane2Horse;
-    private Horse lane3Horse;
+    /// An ArrayList storing each lane.  Can be either of type [Horse] or `null` to indicate weather a horse is on a lane or it is empty.  
+    private ArrayList<Horse> lanes;
 
     /**
      * Constructor for objects of class Race
@@ -25,9 +26,7 @@ public class Race
     {
         // initialise instance variables
         raceLength = distance;
-        lane1Horse = null;
-        lane2Horse = null;
-        lane3Horse = null;
+        lanes = new ArrayList<>();
     }
     
     /**
@@ -38,22 +37,14 @@ public class Race
      */
     public void addHorse(Horse theHorse, int laneNumber)
     {
-        if (laneNumber == 1)
-        {
-            lane1Horse = theHorse;
+
+        // Ensure the array list is at least big enough to handle the laneNumber.  
+        while(laneNumber > lanes.size()) {
+            lanes.add(null);
         }
-        else if (laneNumber == 2)
-        {
-            lane2Horse = theHorse;
-        }
-        else if (laneNumber == 3)
-        {
-            lane3Horse = theHorse;
-        }
-        else
-        {
-            System.out.println("Cannot add horse to lane " + laneNumber + " because there is no such lane");
-        }
+
+        // Set the lane at the specified `laneNumber` to the [Horse] provided
+        lanes.set(laneNumber - 1, theHorse);
     }
     
     /**
@@ -64,29 +55,42 @@ public class Race
      */
     public void startRace()
     {
-        //declare a local variable to tell us when the race is finished
-        boolean finished = false;
-        
-        //reset all the lanes (all horses not fallen and back to 0). 
-        lane1Horse.goBackToStart();
-        lane2Horse.goBackToStart();
-        lane3Horse.goBackToStart();
-                      
-        while (!finished)
-        {
-            //move each horse
-            moveHorse(lane1Horse);
-            moveHorse(lane2Horse);
-            moveHorse(lane3Horse);
-                        
-            //print the race positions
-            printRace();
-            
-            //if any of the three horses has won the race is finished
-            if ( raceWonBy(lane1Horse) || raceWonBy(lane2Horse) || raceWonBy(lane3Horse) )
-            {
-                finished = true;
-            }
+        // declare a local variable to tell us when the race is finished.
+        // This is an object so it's state can be maintained within lambda functions.  
+        BooleanWrapper finished = new BooleanWrapper(false);
+                
+                //reset all the lanes (all horses not fallen and back to 0). 
+                // loop through each lane individually.  
+                lanes.forEach((Horse horse) -> {
+                    // If the lane is empty then doesn't have a horse to reset.  
+                    if(horse != null) {
+                        horse.goBackToStart();
+                    }
+                });
+                   
+                // While no hoese has finished yet. (Race is still running)
+                while (!finished.getFlag())
+                {
+                    //move each horse by looping through ArrayList
+                    lanes.forEach((Horse horse) -> {
+                        if(horse != null) {
+                            moveHorse(horse);;
+                        }
+                    });
+                                
+                    //print the race positions
+                    printRace();
+                    
+                    //if any of the three horses has won the race is finished
+                    lanes.forEach((Horse horse) -> {
+                        if(horse != null) {
+                            if(raceWonBy(horse)) {
+                                // Set the finished value to `true`.  
+                                finished.setFlag(true);
+                                return;
+                    }
+                }
+            });
            
             //wait for 100 milliseconds
             try{ 
@@ -151,15 +155,13 @@ public class Race
         
         multiplePrint('=',raceLength+3); //top edge of track
         System.out.println();
-        
-        printLane(lane1Horse);
-        System.out.println();
-        
-        printLane(lane2Horse);
-        System.out.println();
-        
-        printLane(lane3Horse);
-        System.out.println();
+
+        // Print the lanes through a loop to handle different numbers of lanes and horses.  
+        lanes.forEach((Horse horse) -> {
+            printLane(horse);
+            System.out.println();
+        });
+
         
         multiplePrint('=',raceLength+3); //bottom edge of track
         System.out.println();    
@@ -173,6 +175,15 @@ public class Race
      */
     private void printLane(Horse theHorse)
     {
+        // Handle empty lanes
+        if(theHorse == null) {
+            System.out.print('|');
+            multiplePrint(' ', raceLength + 1);
+            System.out.print('|');
+            return;
+        }
+
+
         //calculate how many spaces are needed before
         //and after the horse
         int spacesBefore = theHorse.getDistanceTravelled();
