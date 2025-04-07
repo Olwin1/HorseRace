@@ -19,7 +19,7 @@ public class GameFrame extends JPanel {
 
         // Create the backdrop with scaled images and set the panel size
             try {
-                backdrop = new Backdrop("./Sprites/Backdrop/Track/top-track.png", "./Sprites/Backdrop/Track/bottom-track.png", 3000, 300, 2);
+                backdrop = new Backdrop("./Sprites/Backdrop/Track/top-track.png", "./Sprites/Backdrop/Track/bottom-track.png", 300, 300, 2);
             } catch (FileNotFoundException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();

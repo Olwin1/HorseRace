@@ -21,7 +21,9 @@ public class MainMenu {
     MainMenu() {
         // Create a JFrame
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(800, 450);
+        frame.setSize(480, 400);
+        frame.setResizable(false);
+
     }
 
     public static void main(String[] args) {
