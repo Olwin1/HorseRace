@@ -1,5 +1,10 @@
+import GUI.PrimaryPage;
+import Primary.Horse;
+import Primary.Race;
+
 public class Main {
     public static void main(String[] args) {
+        PrimaryPage.main(null);
         // testHorse();
         Race race = new Race(1);
         race.addHorse(new Horse('A', "Adi", 0.5), 1);
