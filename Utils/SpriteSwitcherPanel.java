@@ -25,7 +25,7 @@ enum Colour {
  * Change the sprite by calling `setSprite`
  */
 public class SpriteSwitcherPanel extends JPanel {
-    private final String path = "./Sprites/";
+    private final String path = "./Sprites/Horse/";
     private Colour colour;
     private JLabel spriteLabel;
     private ImageIcon idleIcon;
