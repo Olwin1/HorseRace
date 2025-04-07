@@ -4,7 +4,7 @@
  * and instance variables related to an individual race horse.  
  * 
  * @author Oliver Munn
- * @version 1.0.0
+ * @version 2.0
  */
 public class Horse
 {

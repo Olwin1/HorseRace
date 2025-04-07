@@ -8,7 +8,7 @@ import java.util.ArrayList;
  * 
  * @author McRaceface
  * @author Oliver Munn
- * @version 1.2
+ * @version 2.0
  */
 public class Race
 {
