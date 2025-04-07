@@ -1,15 +1,16 @@
 import GUI.PrimaryPage;
 import Primary.Horse;
 import Primary.Race;
+import Utils.HorseInstances;
 
 public class Main {
     public static void main(String[] args) {
         PrimaryPage.main(null);
         // testHorse();
         Race race = new Race(1);
-        race.addHorse(new Horse('A', "Adi", 0.5), 1);
-        race.addHorse(new Horse('B', "Bob", 0.25), 2);
-        race.addHorse(new Horse('C', "Cob", 0.8), 3);
+        HorseInstances.getInstance().addHorse(new Horse('A', "Adi", 0.5), 1);
+        HorseInstances.getInstance().addHorse(new Horse('C', "Cob", 0.8), 3);
+        HorseInstances.getInstance().addHorse(new Horse('B', "Bob", 0.25), 2);
         race.startRace();
     }
 
