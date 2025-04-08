@@ -53,4 +53,24 @@ public class HorseInstances {
         horses.set(laneNumber - 1, theHorse);
     }
 
+    /**
+     * Method to get the horse that is currently winning the race.
+     * 
+     * @return The leading [Horse] object.
+     */
+    public Horse getLeadingHorse() {
+        Horse leadingHorse = null;
+        // Loop through each horse in the race
+        for (Horse horse : horses) {
+            // If the leading horse is not set or the current horse is further than the
+            // current leading then set that to leading.
+            if (leadingHorse == null
+                    || (horse != null && leadingHorse.getDistanceTravelled() < horse.getDistanceTravelled())) {
+                leadingHorse = horse;
+            }
+        }
+        // Return the leading horse to the caller.
+        return leadingHorse;
+    }
+
 }
