@@ -15,7 +15,8 @@ public class GameFrame extends JPanel {
     private Backdrop backdrop;
 
     public GameFrame() {
-        setLayout(new BorderLayout()); // Layout to allow expansion
+        setOpaque(false);
+        setLayout(null); // Layout to allow expansion
 
         // Create the backdrop with scaled images and set the panel size
             try {
@@ -26,8 +27,18 @@ public class GameFrame extends JPanel {
             }
         backdrop.setPreferredSize(new Dimension(800, 600)); // Set the desired size for the backdrop panel
 
+
+        HorseMover horseMover = new HorseMover(0, 300, 40, 40, Color.RED);
+        horseMover.setBounds(0, 0, 400, 400); // Set the position of the horse
+        
+    // Set the backdrop size
+    backdrop.setPreferredSize(new Dimension(800, 600)); // Set the desired size for the backdrop panel
+    backdrop.setBounds(0, 0, 800, 600); // Position and size the backdrop correctly
+
+
         // Add the backdrop to the GameFrame (which is a JPanel)
-        add(backdrop, BorderLayout.CENTER);
+        add(horseMover);
+        add(backdrop);
 
         // Set up a timer to move the background every 10 milliseconds
         Timer timer = new Timer(10, new ActionListener() {

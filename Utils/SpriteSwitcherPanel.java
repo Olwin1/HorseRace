@@ -21,16 +21,17 @@ enum Colour {
 
 /**
  * A custom JPanel that displays animated character sprites based on state.
- * It supports different animations (idle, run, fall) and switches between them dynamically.
+ * It supports different animations (idle, run, fall) and switches between them
+ * dynamically.
  * Change the sprite by calling `setSprite`
  */
 public class SpriteSwitcherPanel extends JPanel {
     private final String path = "./Sprites/Horse/";
     private Colour colour;
     private JLabel spriteLabel;
-    private ImageIcon idleIcon;
-    private ImageIcon runIcon;
-    private ImageIcon fallIcon;
+    private AnimatedSprite idleIcon;
+    private AnimatedSprite runIcon;
+    private AnimatedSprite fallIcon;
     private String fallPath;
 
     /**
@@ -38,18 +39,20 @@ public class SpriteSwitcherPanel extends JPanel {
      */
     public SpriteSwitcherPanel() {
         setLayout(new BorderLayout());
+        setOpaque(false);
 
         // Construct file path prefix based on colour (default if null)
         String prefix = path + (colour != null ? colour.name() : "default");
         fallPath = prefix + "_fall.gif";
 
         // Load sprite animations
-        idleIcon = new ImageIcon(prefix + "_idle.gif");
-        runIcon = new ImageIcon(prefix + "_run.gif");
-        fallIcon = new ImageIcon(fallPath);
+        idleIcon = new AnimatedSprite(prefix + "_idle.gif");
+        runIcon = new AnimatedSprite(prefix + "_run.gif");
+        fallIcon = new AnimatedSprite(fallPath);
 
         // Initialize sprite display label
-        spriteLabel = new JLabel(idleIcon);
+        spriteLabel = idleIcon;//new JLabel(idleIcon);
+        spriteLabel.setOpaque(false);
         spriteLabel.setHorizontalAlignment(JLabel.CENTER);
         add(spriteLabel, BorderLayout.CENTER);
     }
@@ -59,19 +62,19 @@ public class SpriteSwitcherPanel extends JPanel {
      *
      * @param state The current state of the character (IDLE, RUN, FALL).
      */
-    public void setSprite(State state) {
-        switch (state) {
-            case State.IDLE:
-                spriteLabel.setIcon(idleIcon);
-                break;
-            case State.RUN:
-                spriteLabel.setIcon(runIcon);
-                break;
-            case State.FALL:
-                playFallOnce(fallPath);
-                break;
-        }
-    }
+    // public void setSprite(State state) {
+    //     switch (state) {
+    //         case State.IDLE:
+    //             spriteLabel.setIcon(idleIcon);
+    //             break;
+    //         case State.RUN:
+    //             spriteLabel.setIcon(runIcon);
+    //             break;
+    //         case State.FALL:
+    //             playFallOnce(fallPath);
+    //             break;
+    //     }
+    // }
 
     /**
      * Plays the fall animation once and freezes on the last frame after completion.
@@ -79,7 +82,7 @@ public class SpriteSwitcherPanel extends JPanel {
      * @param gifPath The path to the fall animation GIF.
      */
     private void playFallOnce(String gifPath) {
-        spriteLabel.setIcon(fallIcon);
+        //spriteLabel.setIcon(fallIcon);
 
         // Use a timer to replace the animation with the final frame after delay
         Timer freezeTimer = new Timer(1333, e -> {

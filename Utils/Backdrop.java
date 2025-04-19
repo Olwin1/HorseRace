@@ -18,6 +18,7 @@ public class Backdrop extends JPanel {
     private int scaleFactor;
     // Constructor
     public Backdrop(String imagePath, String floorImagePath, int panelWidth, int panelHeight, int scaleFactor) throws FileNotFoundException {
+        setOpaque(false);
         this.scaleFactor = scaleFactor;
         try {
             // Load images
