@@ -6,9 +6,11 @@ import Primary.Horse;
  */
 public class HorseRacer {
     private int width;
+    private int totalTrackDistance;
 
-    HorseRacer(int width) {
+    HorseRacer(int width, int totalTrackDistance) {
         this.width = width;
+        this.totalTrackDistance = totalTrackDistance;
     }
 
     /**
@@ -16,17 +18,25 @@ public class HorseRacer {
      * @param horse - The horse to determine the coords of.  
      * @return - The X coordinate. 
      */
-    public int getCoordinate(Horse horse) {
-        // Get the leading horse
-        Horse leadingHorse = HorseInstances.getInstance().getLeadingHorse();
-        // Calculate where the upper quater of the screen is
-        int leadingXCoord = width / 4;
+    public int getCoordinate(int timePassed, int delay, Horse horse) {
+    
+        // How far the backdrop has moved (i.e., how many pixels the "camera" has moved)
+        int backdropShift = timePassed / delay;
+    
+        // Get the horse's relative distance from the starting point in metres
+        double horsePositionInMetres = horse.getDistanceTravelled() * 8;
+    
+        // Convert that to a pixel position relative to the full track
+        double horsePositionInPixels = (horsePositionInMetres / (double) totalTrackDistance) * width;
+    
+        // Apply the backdrop shift — move everything left as the background scrolls
+        double finalPosition = horsePositionInPixels - backdropShift;
 
-        // Work out the difference between the selected horse and the leader.  
-        int difference = horse.getDistanceTravelled() - leadingHorse.getDistanceTravelled();
-
-        // Return a new coordinate specifying where the horse should be on the screen.  
-        return leadingXCoord + difference;
+        if(horse.getName() == "Cob") {
+        System.out.println(String.format("Horse: %s, position: %s, backdropshift: %s, horsepospixel: %s", horse.getName(), finalPosition, backdropShift, horsePositionInPixels));
+        }
+        return (int) finalPosition;
     }
+    
 
 }

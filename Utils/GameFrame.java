@@ -5,16 +5,23 @@ package Utils;
 import javax.swing.*;
 
 import GUI.MainMenu;
+import Primary.Horse;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class GameFrame extends JPanel {
     private Backdrop backdrop;
+    private HorseRacer horseRacer;
+    final int width = 800;
+    final int height = 600;
 
-    public GameFrame() {
+    public GameFrame(int raceDistance) {
+        horseRacer = new HorseRacer(width / 3, raceDistance);
         setOpaque(false);
         setLayout(null); // Layout to allow expansion
 
@@ -28,23 +35,66 @@ public class GameFrame extends JPanel {
         backdrop.setPreferredSize(new Dimension(800, 600)); // Set the desired size for the backdrop panel
 
 
-        HorseMover horseMover = new HorseMover(0, 300, 40, 40, Color.RED);
-        horseMover.setBounds(0, 0, 400, 400); // Set the position of the horse
+        /////////////////
+        // Horse Logic //
+        /////////////////
+
+        int displacement = 0;
+
+        // Loop through each horse and create a GUI element for it.  
+        for(int i = 0; i < HorseInstances.getInstance().horses.size(); i++) {
+            // Get the horse
+            Horse horse = HorseInstances.getInstance().horses.get(i);
+
+            // Create a new HorseMover instance
+            HorseMover horseMover = new HorseMover(0, 0, 40, 40, Color.RED, horse);
+            // Increase the displacement so the next horse will appear below this one.  
+            displacement += 35;
+
+
+            horseMover.setBounds(0, -190 + displacement, 400, 400); // Set the position of the horse
+
+            // Add the horse GUI element to the singleton that stores them all.  
+            HorseMoverInstances.getInstance().addHorse(horseMover);
+    }
         
     // Set the backdrop size
     backdrop.setPreferredSize(new Dimension(800, 600)); // Set the desired size for the backdrop panel
-    backdrop.setBounds(0, 0, 800, 600); // Position and size the backdrop correctly
+    backdrop.setBounds(0, 0, width, height); // Position and size the backdrop correctly
 
-
+        // Add the all the horse movers to the GameFrame in reverse order so they are correctly aligned in z-axis.  
+        HorseMoverInstances.getInstance().getHorseMovers().reversed().forEach(horseMover -> {
+            add(horseMover);
+        });
+        
         // Add the backdrop to the GameFrame (which is a JPanel)
-        add(horseMover);
         add(backdrop);
 
         // Set up a timer to move the background every 10 milliseconds
-        Timer timer = new Timer(10, new ActionListener() {
+        AtomicInteger totalTimePassed = new AtomicInteger(0);
+        int delay = 30;
+        Timer timer = new Timer(delay, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                int timePassed = totalTimePassed.getAndAdd(delay);
+
+                 if(true) {
+                    // if(HorseInstances.getInstance().getLeadingHorse().getDistanceTravelled() * width > backdrop.getCameraX()) {
                 backdrop.movePanel(); // Move the background
+                 }
+
+
+                // Loop through each horse and update its position
+                ArrayList<HorseMover> horseMovers = HorseMoverInstances.getInstance().horseMovers;
+                for(int i = 0; i < horseMovers.size(); i++) {
+                    HorseMover horseMover = horseMovers.get(i);
+                    Horse horse = horseMover.getHorse();
+
+                    Rectangle bounds = horseMover.getBounds();
+                    int xCoord = horseRacer.getCoordinate(timePassed, delay, horse);
+                    bounds.setLocation(xCoord, bounds.y);
+                    horseMover.setBounds(bounds);
+                }
             }
         });
         timer.start();

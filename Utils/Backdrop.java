@@ -16,6 +16,7 @@ public class Backdrop extends JPanel {
     private int floorX1, floorX2, floorX3; // X positions for the floor images
     private final int floorWidth;     // Width of the floor image
     private int scaleFactor;
+    private int cameraX;
     // Constructor
     public Backdrop(String imagePath, String floorImagePath, int panelWidth, int panelHeight, int scaleFactor) throws FileNotFoundException {
         setOpaque(false);
@@ -45,6 +46,9 @@ public class Backdrop extends JPanel {
         this.floorX1 = 0;
         this.floorX2 = floorWidth;
         this.floorX3 = floorWidth * 2;
+
+        // Keep track of where logical camera is
+        this.cameraX = 0;
     }
 
     // Load image utility function with scaling
@@ -88,6 +92,7 @@ public class Backdrop extends JPanel {
      * Moves the backdrop and floor by 1 pixel and auto-stitches the next image.
      */
     public void movePanel() {
+        cameraX += 1;
         // Move each background image by 1 pixel
         x1 -= 1;
         x2 -= 1;
@@ -122,6 +127,12 @@ public class Backdrop extends JPanel {
 
         // Repaint the panel to reflect the changes
         repaint();
+
+
+    }
+
+    public int getCameraX() {
+        return cameraX;
     }
 
     

@@ -1,3 +1,4 @@
+import GUI.GameGrid;
 import GUI.PrimaryPage;
 import Primary.Horse;
 import Primary.Race;
@@ -5,12 +6,14 @@ import Utils.HorseInstances;
 
 public class Main {
     public static void main(String[] args) {
+        final int raceDistance = 10000;
         HorseInstances.getInstance().addHorse(new Horse('A', "Adi", 0.5), 1);
         HorseInstances.getInstance().addHorse(new Horse('C', "Cob", 0.8), 3);
         HorseInstances.getInstance().addHorse(new Horse('B', "Bob", 0.25), 2);
-        PrimaryPage.main(null);
+        //PrimaryPage.main(raceDistance);
+        GameGrid.main(raceDistance);
         // testHorse();
-        Race race = new Race(1);
+        Race race = new Race(raceDistance);
 
         race.startRace();
     }

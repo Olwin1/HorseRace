@@ -10,7 +10,7 @@ import java.awt.*;
  * Simple grid class to create a grid display for during the race.  
  */
 public class GameGrid {
-    public static void main(String[] args) {
+    public static void main(int raceDistance) {
         SwingUtilities.invokeLater(() -> {
             JFrame frame = MainMenu.getInstance().getFrame();
 
@@ -20,7 +20,7 @@ public class GameGrid {
 
             // Central Screen Panel
             // This panel will show the race itself
-            GameFrame screenPanel = new GameFrame();
+            GameFrame screenPanel = new GameFrame(raceDistance);
             screenPanel.setBackground(Color.BLACK); // screen look
             gbc.gridx = 1;
             gbc.gridy = 1;
