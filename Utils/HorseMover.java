@@ -9,6 +9,7 @@ public class HorseMover extends SpriteSwitcherPanel {
     private int y; // Fixed Y position
     private Color color;
     private Horse horse;
+    private boolean previousFallenState = false;
 
     public HorseMover(int startX, int startY, int width, int height, Color color, Horse horse) {
         this.x = startX;
@@ -26,6 +27,13 @@ public class HorseMover extends SpriteSwitcherPanel {
      */
     public Horse getHorse() {
         return this.horse;
+    }
+
+    public boolean getPreviousFallenState() {
+        return this.previousFallenState;
+    }
+    public void setPreviousFallenState() {
+        this.previousFallenState = true;
     }
 
     /**

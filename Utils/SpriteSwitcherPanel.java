@@ -62,31 +62,44 @@ public class SpriteSwitcherPanel extends JPanel {
      *
      * @param state The current state of the character (IDLE, RUN, FALL).
      */
-    // public void setSprite(State state) {
-    //     switch (state) {
-    //         case State.IDLE:
-    //             spriteLabel.setIcon(idleIcon);
-    //             break;
-    //         case State.RUN:
-    //             spriteLabel.setIcon(runIcon);
-    //             break;
-    //         case State.FALL:
-    //             playFallOnce(fallPath);
-    //             break;
-    //     }
-    // }
+    public void setSprite(State state) {
+        remove(spriteLabel); // Remove current sprite component
+    
+        switch (state) {
+            case IDLE:
+                spriteLabel = idleIcon;
+                break;
+            case RUN:
+                spriteLabel = runIcon;
+                break;
+            case FALL:
+                spriteLabel = fallIcon;
+                break;
+        }
+    
+        spriteLabel.setHorizontalAlignment(JLabel.CENTER);
+        spriteLabel.setOpaque(false);
+        add(spriteLabel, BorderLayout.CENTER);
+        revalidate();
+        repaint();
+    
+        if (state == State.FALL) {
+            playFallOnce();
+        }
+    }
+    
 
     /**
      * Plays the fall animation once and freezes on the last frame after completion.
      *
      * @param gifPath The path to the fall animation GIF.
      */
-    private void playFallOnce(String gifPath) {
+    public void playFallOnce() {
         //spriteLabel.setIcon(fallIcon);
 
         // Use a timer to replace the animation with the final frame after delay
         Timer freezeTimer = new Timer(1333, e -> {
-            Image lastFrame = getLastFrame(gifPath);
+            Image lastFrame = getLastFrame(fallPath);
             if (lastFrame != null) {
                 spriteLabel.setIcon(new ImageIcon(lastFrame));
             }

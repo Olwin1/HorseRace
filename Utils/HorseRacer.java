@@ -23,7 +23,7 @@ public class HorseRacer {
         // How far the backdrop has moved (i.e., how many pixels the "camera" has moved)
         int backdropShift = timePassed / delay;
     
-        // Get the horse's relative distance from the starting point in metres
+        // Get the horse's relative distance from the starting point in metres and multiply it by an amount to make it a noticable on screen.
         double horsePositionInMetres = horse.getDistanceTravelled() * 8;
     
         // Convert that to a pixel position relative to the full track
@@ -32,9 +32,9 @@ public class HorseRacer {
         // Apply the backdrop shift — move everything left as the background scrolls
         double finalPosition = horsePositionInPixels - backdropShift;
 
-        if(horse.getName() == "Cob") {
-        System.out.println(String.format("Horse: %s, position: %s, backdropshift: %s, horsepospixel: %s", horse.getName(), finalPosition, backdropShift, horsePositionInPixels));
-        }
+        // if(horse.getName() == "Cob") {
+        // System.out.println(String.format("Horse: %s, position: %s, backdropshift: %s, horsepospixel: %s", horse.getName(), finalPosition, backdropShift, horsePositionInPixels));
+        // }
         return (int) finalPosition;
     }
     

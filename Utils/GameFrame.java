@@ -94,6 +94,12 @@ public class GameFrame extends JPanel {
                     int xCoord = horseRacer.getCoordinate(timePassed, delay, horse);
                     bounds.setLocation(xCoord, bounds.y);
                     horseMover.setBounds(bounds);
+
+                    if(!horseMover.getPreviousFallenState()) {
+                        if(horse.hasFallen()) {
+                            horseMover.setSprite(State.FALL);
+                        }
+                    }
                 }
             }
         });
