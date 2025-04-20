@@ -5,17 +5,17 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.FileNotFoundException;
 
-
 /**
- * Simple class to take an image path and create a [JPanel] with that image as the background at the desired scale.  
- * It will then load 3 versions of this image so it can be extended a bit beyond the screen.  
+ * Simple class to take an image path and create a [JPanel] with that image as
+ * the background at the desired scale.
+ * It will then load 3 versions of this image so it can be extended a bit beyond
+ * the screen.
  */
 public class ImagePanelLoader extends JPanel {
 
     protected int scaleFactor;
-    private BufferedImage image;      // The image to load
-    private int x1, x2, x3;           // X positions for the three background images
-
+    private BufferedImage image; // The image to load
+    private int x1, x2, x3; // X positions for the three background images
 
     public ImagePanelLoader(String imagePath, int scaleFactor) throws FileNotFoundException {
         this.scaleFactor = scaleFactor;
@@ -50,44 +50,56 @@ public class ImagePanelLoader extends JPanel {
         return bufferedImage;
     }
 
-        // Paint method to draw the images on the panel
-        @Override
-        protected void paintComponent(Graphics g) {
-            super.paintComponent(g);
+    // Paint method to draw the images on the panel
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
 
-            
-            // Draw the backdrop images
-            g.drawImage(image, x1, 0, null);
-            g.drawImage(image, x2, 0, null);
-            g.drawImage(image, x3, 0, null);
-                    // Initial X positions for background and floor
-        }
+        // Draw the backdrop images
+        g.drawImage(image, x1, 0, null);
+        g.drawImage(image, x2, 0, null);
+        g.drawImage(image, x3, 0, null);
+        // Initial X positions for background and floor
+    }
 
-    public int getImageWidth() {
+    ////////////////////////////////////////////////////////////////////////
+    // Define some public methods to be used by the child class - backdrop /
+    ////////////////////////////////////////////////////////////////////////
+
+    /// Basic Accessor method for getting the image width
+    protected int getImageWidth() {
         return this.image.getWidth();
     }
-    public int getImageHeight() {
+
+    /// Basic Accessor method for getting the image height
+    protected int getImageHeight() {
         return this.image.getHeight();
     }
 
+    // Define seters and getters for the axis values
 
-    public void setX1(int value) {
+    protected void setX1(int value) {
         this.x1 = value;
     }
-    public void setX2(int value) {
+
+    protected void setX2(int value) {
         this.x2 = value;
     }
-    public void setX3(int value) {
+
+    protected void setX3(int value) {
         this.x3 = value;
     }
 
-    public int getX1() {
+    protected int getX1() {
         return this.x1;
     }
-    public int getX2() {
+
+    protected int getX2() {
         return this.x2;
     }
-    public int getX3() {
+
+    protected int getX3() {
         return this.x3;
     }
+
 }

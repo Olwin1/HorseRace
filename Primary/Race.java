@@ -89,7 +89,7 @@ public class Race {
             });
 
             // print the race positions
-            //printRace();
+            // printRace();
 
             // If all horses have fallen then mark the race as finished.
             if (allFallen.getFlag()) {
@@ -196,7 +196,8 @@ public class Race {
     /***
      * Print the race on the terminal
      */
-    private void printRace() {
+    @Deprecated
+    public void printRace() {
         System.out.print('\u000C'); // clear the terminal window
 
         multiplePrint('=', raceLength + 3); // top edge of track

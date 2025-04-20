@@ -22,17 +22,22 @@ public class AnimatedSprite extends JLabel {
 
     public AnimatedSprite(String filePath) {
         try {
+            // Convert the animation to a series of images
             this.frames = convertGIF(filePath, 0.35);
         } catch (Exception e) {
-            // TODO Auto-generated catch block
+            // If errors then print stacktrace and assume there are simply no frames
             e.printStackTrace();
             this.frames = new ArrayList<>();
         }
 
+        // Set the initial icon to the first image of the sequence
         setIcon(new ImageIcon(frames.get(0)));
+
+        // Make sure transparency works and sizing is correct
         setOpaque(false);
         setSize(frames.get(0).getWidth(), frames.get(0).getHeight());
 
+        // Begin the animation
         timer = new Timer(frameDelay, e -> {
             frameIndex = (frameIndex + 1) % frames.size();
             setIcon(new ImageIcon(frames.get(frameIndex)));
@@ -40,16 +45,28 @@ public class AnimatedSprite extends JLabel {
         timer.start();
     }
 
+    /**
+     * Stop the animation
+     */
     public void stop() {
         if (timer != null)
             timer.stop();
     }
 
+    /**
+     * Start the animation
+     */
     public void start() {
         if (timer != null)
             timer.start();
     }
 
+    /**
+     * Set the location of the sprite on the screen.
+     * 
+     * @param x coordinate
+     * @param y coordinate
+     */
     public void setPosition(int x, int y) {
         setLocation(x, y);
     }

@@ -1,7 +1,5 @@
 package Utils;
 
-
-
 import javax.swing.*;
 
 import GUI.MainMenu;
@@ -13,7 +11,6 @@ import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
-
 
 public class GameFrame extends JPanel {
     private Backdrop backdrop;
@@ -30,95 +27,109 @@ public class GameFrame extends JPanel {
         setLayout(null); // Layout to allow expansion
 
         // Create the backdrop with scaled images and set the panel size
-            try {
-                backdrop = new Backdrop("./Sprites/Backdrop/Track/top-track.png", "./Sprites/Backdrop/Track/bottom-track.png", 300, 300, 2);
-                skyPanel = new ImagePanelLoader(String.format("./Sprites/Backdrop/Sky/sky-%s.png", sky.toString().toLowerCase()), 2);
-                
-            } catch (FileNotFoundException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-        backdrop.setPreferredSize(new Dimension(800, 600)); // Set the desired size for the backdrop panel
-        skyPanel.setPreferredSize(backdrop.getPreferredSize());
-        skyPanel.setBounds(-162, 0, width, height); // Position and size the backdrop correctly
+        try {
+            backdrop = new Backdrop("./Sprites/Backdrop/Track/top-track.png",
+                    "./Sprites/Backdrop/Track/bottom-track.png", 300, 300, 2);
+            skyPanel = new ImagePanelLoader(
+                    String.format("./Sprites/Backdrop/Sky/sky-%s.png", sky.toString().toLowerCase()), 2);
 
+        } catch (FileNotFoundException e) {
+            // If errors then print stacktrace
+            e.printStackTrace();
+        }
+        backdrop.setPreferredSize(new Dimension(800, 600)); // Set the desired size for the backdrop panel
+        // Match the backdrop
+        skyPanel.setPreferredSize(backdrop.getPreferredSize());
+
+        skyPanel.setBounds(-162, 0, width, height); // Position and size the sky correctly
 
         /////////////////
         // Horse Logic //
         /////////////////
 
+        // Declare a displacement variable to stop the horses stacking on top of
+        // eachother
         int displacement = 0;
 
-        // Loop through each horse and create a GUI element for it.  
-        for(int i = 0; i < HorseInstances.getInstance().horses.size(); i++) {
+        // Loop through each horse and create a GUI element for it.
+        for (int i = 0; i < HorseInstances.getInstance().horses.size(); i++) {
             // Get the horse
             Horse horse = HorseInstances.getInstance().horses.get(i);
 
             // Create a new HorseMover instance
             HorseMover horseMover = new HorseMover(0, 0, 40, 40, horse);
-            // Increase the displacement so the next horse will appear below this one.  
+            // Increase the displacement so the next horse will appear below this one.
             displacement += 35;
-
 
             horseMover.setBounds(0, -190 + displacement, 400, 400); // Set the position of the horse
 
-            // Add the horse GUI element to the singleton that stores them all.  
+            // Add the horse GUI element to the singleton that stores them all.
             HorseMoverInstances.getInstance().addHorse(horseMover);
-    }
-        
-    backdrop.setBounds(0, 0, width, height); // Position and size the backdrop correctly
+        }
 
-        // Add the all the horse movers to the GameFrame in reverse order so they are correctly aligned in z-axis.  
+        backdrop.setBounds(0, 0, width, height); // Position and size the backdrop correctly
+
+        // Add the all the horse movers to the GameFrame in reverse order so they are
+        // correctly aligned in z-axis.
         HorseMoverInstances.getInstance().getHorseMovers().reversed().forEach(horseMover -> {
             add(horseMover);
         });
-        
+
         // Add the backdrop to the GameFrame (which is a JPanel)
         add(backdrop);
 
         add(skyPanel);
 
-
     }
+
+    /**
+     * Method to begin the UI display of the race
+     */
     public void startRace() {
-                // Set up a timer to move the background every 10 milliseconds
-                AtomicInteger totalTimePassed = new AtomicInteger(0);
-                int delay = 10;
-                timer = new Timer(delay, new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        int timePassed = totalTimePassed.getAndAdd(delay);
-        
-                         if(true) {
-                            // if(HorseInstances.getInstance().getLeadingHorse().getDistanceTravelled() * width > backdrop.getCameraX()) {
-                        backdrop.movePanel(); // Move the background
-                         }
-        
-        
-                        // Loop through each horse and update its position
-                        ArrayList<HorseMover> horseMovers = HorseMoverInstances.getInstance().horseMovers;
-                        for(int i = 0; i < horseMovers.size(); i++) {
-                            HorseMover horseMover = horseMovers.get(i);
-                            Horse horse = horseMover.getHorse();
-        
-                            Rectangle bounds = horseMover.getBounds();
-                            int xCoord = horseRacer.getCoordinate(timePassed, delay, horse);
-                            bounds.setLocation(xCoord, bounds.y);
-                            horseMover.setBounds(bounds);
-        
-                            if(!horseMover.getPreviousFallenState()) {
-                                if(horse.hasFallen()) {
-                                    horseMover.setSprite(State.FALL);
-                                    System.out.println("setfalling");
-                                    horseMover.setPreviousFallenState();
-                                }
-                            }
+        // Set up a timer to move the background every 10 milliseconds
+        AtomicInteger totalTimePassed = new AtomicInteger(0);
+        int delay = 10;
+        timer = new Timer(delay, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int timePassed = totalTimePassed.getAndAdd(delay);
+
+                if (true) {
+                    // if(HorseInstances.getInstance().getLeadingHorse().getDistanceTravelled() *
+                    // width > backdrop.getCameraX()) {
+                    backdrop.movePanel(); // Move the background
+                }
+
+                // Loop through each horse and update its position
+                ArrayList<HorseMover> horseMovers = HorseMoverInstances.getInstance().horseMovers;
+                for (int i = 0; i < horseMovers.size(); i++) {
+                    HorseMover horseMover = horseMovers.get(i);
+                    Horse horse = horseMover.getHorse();
+
+                    Rectangle bounds = horseMover.getBounds();
+                    int xCoord = horseRacer.getCoordinate(timePassed, delay, horse);
+                    bounds.setLocation(xCoord, bounds.y);
+                    horseMover.setBounds(bounds);
+
+                    if (!horseMover.getPreviousFallenState()) {
+                        if (horse.hasFallen()) {
+                            horseMover.setSprite(State.FALL);
+                            System.out.println("setfalling");
+                            horseMover.setPreviousFallenState();
                         }
                     }
-                });
-                timer.start();
+                }
+            }
+        });
+        timer.start();
     }
+
+    /**
+     * Stop running the UI of the race. This most noticably will stop the camera
+     * scrolling.
+     */
     public void endRace() {
+        // Stop the timer
         timer.stop();
     }
 
@@ -129,7 +140,7 @@ public class GameFrame extends JPanel {
 
         // Create the GameFrame (which extends JPanel)
         GameFrame gamePanel = new GameFrame(1000, Sky.CLEAR);
-        
+
         // Add the GameFrame panel to the JFrame
         frame.add(gamePanel);
 

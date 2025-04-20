@@ -49,6 +49,7 @@ public class Backdrop extends ImagePanelLoader {
     // Paint method to draw the images on the panel
     @Override
     protected void paintComponent(Graphics g) {
+        // Call the super - should have the image repainting already implemented
         super.paintComponent(g);
 
         // Draw the racetrack floor at the bottom

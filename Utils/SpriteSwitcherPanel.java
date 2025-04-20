@@ -44,7 +44,8 @@ public class SpriteSwitcherPanel extends JPanel {
         setOpaque(false);
 
         // Construct file path prefix based on colour (default if null)
-        String prefix = path + (horseColour != null ? horseColour.toString().toLowerCase() : HorseColour.DEFAULT.toString().toLowerCase());
+        String prefix = path + (horseColour != null ? horseColour.toString().toLowerCase()
+                : HorseColour.DEFAULT.toString().toLowerCase());
         fallPath = prefix + "_fall.gif";
 
         // Load sprite animations
@@ -53,7 +54,7 @@ public class SpriteSwitcherPanel extends JPanel {
         fallIcon = new AnimatedSprite(fallPath);
 
         // Initialize sprite display label
-        spriteLabel = idleIcon;//new JLabel(idleIcon);
+        spriteLabel = idleIcon;// new JLabel(idleIcon);
         spriteLabel.setOpaque(false);
         spriteLabel.setHorizontalAlignment(JLabel.CENTER);
         add(spriteLabel, BorderLayout.CENTER);
@@ -66,7 +67,8 @@ public class SpriteSwitcherPanel extends JPanel {
      */
     public void setSprite(State state) {
         remove(spriteLabel); // Remove current sprite component
-    
+
+        // Set the new sprite component
         switch (state) {
             case IDLE:
                 spriteLabel = idleIcon;
@@ -78,18 +80,18 @@ public class SpriteSwitcherPanel extends JPanel {
                 playFallOnce();
                 break;
         }
-    
+
+        // Update the screen
         spriteLabel.setHorizontalAlignment(JLabel.CENTER);
         spriteLabel.setOpaque(false);
         add(spriteLabel, BorderLayout.CENTER);
         revalidate();
         repaint();
-    
+
         if (state == State.FALL) {
             playFallOnce();
         }
     }
-    
 
     /**
      * Plays the fall animation once and freezes on the last frame after completion.
@@ -108,9 +110,6 @@ public class SpriteSwitcherPanel extends JPanel {
         revalidate();
         repaint();
 
-
-
-
         // Use a timer to replace the animation with the final frame after delay
         Timer freezeTimer = new Timer(1333, e -> {
             Image lastFrame = getLastFrame(fallPath);
@@ -118,7 +117,8 @@ public class SpriteSwitcherPanel extends JPanel {
             BufferedImage scaledFrame = AnimatedSprite.scaleImage((BufferedImage) lastFrame, 0.35);
             if (lastFrame != null) {
 
-                // Once fall animation is complete replace it with the static image of the horse fallen.  
+                // Once fall animation is complete replace it with the static image of the horse
+                // fallen.
                 remove(spriteLabel);
                 spriteLabel = new JLabel(new ImageIcon(scaledFrame));
 
