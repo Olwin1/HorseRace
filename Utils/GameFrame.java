@@ -54,7 +54,7 @@ public class GameFrame extends JPanel {
             Horse horse = HorseInstances.getInstance().horses.get(i);
 
             // Create a new HorseMover instance
-            HorseMover horseMover = new HorseMover(0, 0, 40, 40, Color.RED, horse);
+            HorseMover horseMover = new HorseMover(0, 0, 40, 40, horse);
             // Increase the displacement so the next horse will appear below this one.  
             displacement += 35;
 

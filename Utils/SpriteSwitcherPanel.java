@@ -4,6 +4,9 @@ import javax.imageio.ImageIO;
 import javax.imageio.ImageReader;
 import javax.imageio.stream.ImageInputStream;
 import javax.swing.*;
+
+import Primary.HorseColour;
+
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -27,7 +30,6 @@ enum Colour {
  */
 public class SpriteSwitcherPanel extends JPanel {
     private final String path = "./Sprites/Horse/";
-    private Colour colour;
     private JLabel spriteLabel;
     private AnimatedSprite idleIcon;
     private AnimatedSprite runIcon;
@@ -37,12 +39,12 @@ public class SpriteSwitcherPanel extends JPanel {
     /**
      * Constructs a SpriteSwitcherPanel and initialises sprite resources.
      */
-    public SpriteSwitcherPanel() {
+    public SpriteSwitcherPanel(HorseColour horseColour) {
         setLayout(new BorderLayout());
         setOpaque(false);
 
         // Construct file path prefix based on colour (default if null)
-        String prefix = path + (colour != null ? colour.name() : "default");
+        String prefix = path + (horseColour != null ? horseColour.toString().toLowerCase() : HorseColour.DEFAULT.toString().toLowerCase());
         fallPath = prefix + "_fall.gif";
 
         // Load sprite animations

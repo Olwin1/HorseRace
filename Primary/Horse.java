@@ -36,6 +36,9 @@ public class Horse
     /// A field that is used to store the horse's progress during the race.  
     private int distanceTravelled = 0;
 
+    /// Determines the colour of the horse that will race
+    private HorseColour horseColour;
+
 
     /////////////////////////////////////
     // Horse class method definitions. //
@@ -52,7 +55,7 @@ public class Horse
      * 
      * @throws IllegalArgumentException Must be a value between 0 and 1 otherwise an [IllegalArgumentException] is thrown.  
      */
-    public Horse(char horseSymbol, String horseName, double horseConfidence) throws IllegalArgumentException
+    public Horse(char horseSymbol, String horseName, double horseConfidence, HorseColour colour) throws IllegalArgumentException
     {
         if(horseConfidence > 1 || horseConfidence < 0) {
             throw new IllegalArgumentException("Confidence must be a value between 0 and 1.");
@@ -62,12 +65,19 @@ public class Horse
         this.horseSymbol = horseSymbol;
         this.horseConfidence = horseConfidence;
         this.horseName = horseName;
+        this.horseColour = colour;
+
        
     }
     
     
     
     //Generic methods of class Horse
+
+    /// Gets the horse's colour
+    public HorseColour getColour() {
+        return this.horseColour;
+    }
 
     /// Sets the [hasFallen] flag to true.  
     public void fall()
