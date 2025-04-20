@@ -20,6 +20,7 @@ public class GameFrame extends JPanel {
 
     private JPanel skyPanel;
     private HorseRacer horseRacer;
+    private Timer timer;
     final int width = 800;
     final int height = 600;
 
@@ -83,7 +84,7 @@ public class GameFrame extends JPanel {
                 // Set up a timer to move the background every 10 milliseconds
                 AtomicInteger totalTimePassed = new AtomicInteger(0);
                 int delay = 10;
-                Timer timer = new Timer(delay, new ActionListener() {
+                timer = new Timer(delay, new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         int timePassed = totalTimePassed.getAndAdd(delay);
@@ -116,6 +117,9 @@ public class GameFrame extends JPanel {
                     }
                 });
                 timer.start();
+    }
+    public void endRace() {
+        timer.stop();
     }
 
     public static void main(String[] args) {

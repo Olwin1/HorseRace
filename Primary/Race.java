@@ -94,6 +94,8 @@ public class Race {
             // If all horses have fallen then mark the race as finished.
             if (allFallen.getFlag()) {
                 finished.setFlag(true);
+                // Stop moving UI
+                gameFrame.endRace();
             }
 
             // if any of the three horses has won the race is finished
@@ -102,6 +104,9 @@ public class Race {
                     if (raceWonBy(horse)) {
                         // Set the finished value to `true`.
                         finished.setFlag(true);
+
+                        // Stop Moving UI
+                        gameFrame.endRace();
                         return;
                     }
                 }
