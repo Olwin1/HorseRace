@@ -1,30 +1,28 @@
 package Utils;
 
 
-import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.FileNotFoundException;
 
-public class Backdrop extends JPanel {
-    private BufferedImage image;      // The image to repeat (background)
-    private int x1, x2, x3;           // X positions for the three background images
+public class Backdrop extends ImagePanelLoader {
     private final int imageWidth;      // Width of one image (background)
     private final int panelWidth;      // Width of the panel (viewable area)
     private int panelHeight;           // Height of the panel (including racetrack floor)
     private BufferedImage floorImage; // The floor image (racetrack floor)
     private int floorX1, floorX2, floorX3; // X positions for the floor images
     private final int floorWidth;     // Width of the floor image
-    private int scaleFactor;
     private int cameraX;
     // Constructor
     public Backdrop(String imagePath, String floorImagePath, int panelWidth, int panelHeight, int scaleFactor) throws FileNotFoundException {
+        super(imagePath, scaleFactor);
+
+
         setOpaque(false);
         this.scaleFactor = scaleFactor;
         try {
             // Load images
-            this.image = loadImage(imagePath, scaleFactor);
-            this.floorImage = loadImage(floorImagePath, scaleFactor);
+            this.floorImage = loadImage(floorImagePath);
         } catch (Exception e) {
             e.printStackTrace();
             throw new FileNotFoundException("Image could not be loaded:" + e.getMessage());
@@ -35,13 +33,10 @@ public class Backdrop extends JPanel {
         this.panelHeight = panelHeight;
 
         // Get the width of one image
-        this.imageWidth = image.getWidth();
+        this.imageWidth = getImageWidth();
         this.floorWidth = floorImage.getWidth();
 
-        // Initial X positions for background and floor
-        this.x1 = 0;
-        this.x2 = imageWidth;
-        this.x3 = imageWidth * 2;
+        // Initial X positions for floor
 
         this.floorX1 = 0;
         this.floorX2 = floorWidth;
@@ -51,38 +46,14 @@ public class Backdrop extends JPanel {
         this.cameraX = 0;
     }
 
-    // Load image utility function with scaling
-    private BufferedImage loadImage(String path, int scaleFactor) throws Exception {
-        ImageIcon icon = new ImageIcon(path);
-        Image img = icon.getImage();
-
-        // Get the scaled width and height
-        int scaledWidth = img.getWidth(null) * scaleFactor;
-        int scaledHeight = img.getHeight(null) * scaleFactor;
-
-        // Create a scaled image using nearest neighbor scaling to preserve pixel art
-        BufferedImage bufferedImage = new BufferedImage(scaledWidth, scaledHeight, BufferedImage.TYPE_INT_ARGB);
-        Graphics2D g2d = bufferedImage.createGraphics();
-        g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_NEAREST_NEIGHBOR);
-        g2d.drawImage(img, 0, 0, scaledWidth, scaledHeight, null);
-        g2d.dispose();
-
-        return bufferedImage;
-    }
-
     // Paint method to draw the images on the panel
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        
-        // Draw the backdrop images
-        g.drawImage(image, x1, 0, null);
-        g.drawImage(image, x2, 0, null);
-        g.drawImage(image, x3, 0, null);
 
         // Draw the racetrack floor at the bottom
         
-        int floorY = image.getHeight();
+        int floorY = getImageHeight();
         g.drawImage(floorImage, floorX1, floorY, null);
         g.drawImage(floorImage, floorX2, floorY, null);
         g.drawImage(floorImage, floorX3, floorY, null);
@@ -94,19 +65,19 @@ public class Backdrop extends JPanel {
     public void movePanel() {
         cameraX += 1;
         // Move each background image by 1 pixel
-        x1 -= 1;
-        x2 -= 1;
-        x3 -= 1;
+        setX1(getX1() - 1);
+        setX2(getX2() - 1);
+        setX3(getX3() - 1);
 
         // When a background image moves off the screen, reposition it
-        if (x1 + imageWidth <= 0) {
-            x1 = x3 + imageWidth;
+        if (getX1() + imageWidth <= 0) {
+            setX1(getX3() + imageWidth);
         }
-        if (x2 + imageWidth <= 0) {
-            x2 = x1 + imageWidth;
+        if (getX2() + imageWidth <= 0) {
+            setX2(getX1() + imageWidth);
         }
-        if (x3 + imageWidth <= 0) {
-            x3 = x2 + imageWidth;
+        if (getX3() + imageWidth <= 0) {
+            setX3(getX2() + imageWidth);
         }
 
         // Move the floor images horizontally with the backdrop

@@ -1,20 +1,5 @@
 package GUI;
 
-import java.awt.BorderLayout;
-import java.awt.Dimension;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.io.FileNotFoundException;
-
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-
-import Utils.Backdrop;
-import Utils.GameFrame;
-import Utils.SpriteSwitcherPanel;
-import Utils.State;
-
 public class PrimaryPage {
     public static void main(String[] args) {
         //GameGrid.main(null);

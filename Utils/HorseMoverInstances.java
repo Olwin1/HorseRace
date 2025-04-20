@@ -2,7 +2,6 @@ package Utils;
 
 import java.util.ArrayList;
 
-import Primary.Horse;
 
 /**
  * Basic singleton to keep track of HorseMover instances. This will ensure the horses can be moved across the track

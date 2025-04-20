@@ -14,13 +14,16 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
 
+
 public class GameFrame extends JPanel {
     private Backdrop backdrop;
+
+    private JPanel skyPanel;
     private HorseRacer horseRacer;
     final int width = 800;
     final int height = 600;
 
-    public GameFrame(int raceDistance) {
+    public GameFrame(int raceDistance, Sky sky) {
         horseRacer = new HorseRacer(width / 3, raceDistance);
         setOpaque(false);
         setLayout(null); // Layout to allow expansion
@@ -28,11 +31,15 @@ public class GameFrame extends JPanel {
         // Create the backdrop with scaled images and set the panel size
             try {
                 backdrop = new Backdrop("./Sprites/Backdrop/Track/top-track.png", "./Sprites/Backdrop/Track/bottom-track.png", 300, 300, 2);
+                skyPanel = new ImagePanelLoader(String.format("./Sprites/Backdrop/Sky/sky-%s.png", sky.toString().toLowerCase()), 2);
+                
             } catch (FileNotFoundException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
         backdrop.setPreferredSize(new Dimension(800, 600)); // Set the desired size for the backdrop panel
+        skyPanel.setPreferredSize(backdrop.getPreferredSize());
+        skyPanel.setBounds(-162, 0, width, height); // Position and size the backdrop correctly
 
 
         /////////////////
@@ -58,8 +65,6 @@ public class GameFrame extends JPanel {
             HorseMoverInstances.getInstance().addHorse(horseMover);
     }
         
-    // Set the backdrop size
-    backdrop.setPreferredSize(new Dimension(800, 600)); // Set the desired size for the backdrop panel
     backdrop.setBounds(0, 0, width, height); // Position and size the backdrop correctly
 
         // Add the all the horse movers to the GameFrame in reverse order so they are correctly aligned in z-axis.  
@@ -69,6 +74,8 @@ public class GameFrame extends JPanel {
         
         // Add the backdrop to the GameFrame (which is a JPanel)
         add(backdrop);
+
+        add(skyPanel);
 
 
     }
@@ -117,7 +124,7 @@ public class GameFrame extends JPanel {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         // Create the GameFrame (which extends JPanel)
-        GameFrame gamePanel = new GameFrame(1000);
+        GameFrame gamePanel = new GameFrame(1000, Sky.CLEAR);
         
         // Add the GameFrame panel to the JFrame
         frame.add(gamePanel);

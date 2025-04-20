@@ -5,7 +5,6 @@ import java.util.concurrent.TimeUnit;
 import Utils.BooleanWrapper;
 import Utils.GameFrame;
 import Utils.HorseInstances;
-import Utils.HorseMover;
 import Utils.HorseMoverInstances;
 import Utils.State;
 

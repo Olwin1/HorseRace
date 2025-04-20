@@ -5,6 +5,7 @@ import javax.swing.*;
 import Utils.GameFrame;
 
 import java.awt.*;
+import Utils.Sky;
 
 /**
  * Simple grid class to create a grid display for during the race.  
@@ -21,7 +22,7 @@ public class GameGrid {
 
             // Central Screen Panel
             // This panel will show the race itself
-            screenPanel = new GameFrame(raceDistance);
+            screenPanel = new GameFrame(raceDistance, Sky.RAIN);
             screenPanel.setBackground(Color.BLACK); // screen look
             gbc.gridx = 1;
             gbc.gridy = 1;
