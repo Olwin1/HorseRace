@@ -3,7 +3,11 @@ package Primary;
 import java.util.concurrent.TimeUnit;
 
 import Utils.BooleanWrapper;
+import Utils.GameFrame;
 import Utils.HorseInstances;
+import Utils.HorseMover;
+import Utils.HorseMoverInstances;
+import Utils.State;
 
 import java.lang.Math;
 import java.util.ArrayList;
@@ -42,7 +46,8 @@ public class Race {
      * then repeatedly moved forward until the
      * race is finished
      */
-    public void startRace() {
+    public void startRace(GameFrame gameFrame) {
+
         // declare a local variable to tell us when the race is finished.
         // This is an object so it's state can be maintained within lambda functions.
         BooleanWrapper finished = new BooleanWrapper(false);
@@ -54,6 +59,15 @@ public class Race {
             if (horse != null) {
                 horse.goBackToStart();
             }
+        });
+
+        // Set the visual representation to start to reflect this logical start
+        gameFrame.startRace();
+
+        // Loop through each horse mover and set its sprite to the running
+        HorseMoverInstances.getInstance().horseMovers.forEach(horseMover -> {
+            System.out.println(horseMover.getName());
+            horseMover.setSprite(State.RUN);
         });
 
         // While no hoese has finished yet. (Race is still running)

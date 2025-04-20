@@ -70,42 +70,45 @@ public class GameFrame extends JPanel {
         // Add the backdrop to the GameFrame (which is a JPanel)
         add(backdrop);
 
-        // Set up a timer to move the background every 10 milliseconds
-        AtomicInteger totalTimePassed = new AtomicInteger(0);
-        int delay = 30;
-        Timer timer = new Timer(delay, new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                int timePassed = totalTimePassed.getAndAdd(delay);
 
-                 if(true) {
-                    // if(HorseInstances.getInstance().getLeadingHorse().getDistanceTravelled() * width > backdrop.getCameraX()) {
-                backdrop.movePanel(); // Move the background
-                 }
-
-
-                // Loop through each horse and update its position
-                ArrayList<HorseMover> horseMovers = HorseMoverInstances.getInstance().horseMovers;
-                for(int i = 0; i < horseMovers.size(); i++) {
-                    HorseMover horseMover = horseMovers.get(i);
-                    Horse horse = horseMover.getHorse();
-
-                    Rectangle bounds = horseMover.getBounds();
-                    int xCoord = horseRacer.getCoordinate(timePassed, delay, horse);
-                    bounds.setLocation(xCoord, bounds.y);
-                    horseMover.setBounds(bounds);
-
-                    if(!horseMover.getPreviousFallenState()) {
-                        if(horse.hasFallen()) {
-                            horseMover.setSprite(State.FALL);
-                            System.out.println("setfalling");
-                            horseMover.setPreviousFallenState();
+    }
+    public void startRace() {
+                // Set up a timer to move the background every 10 milliseconds
+                AtomicInteger totalTimePassed = new AtomicInteger(0);
+                int delay = 30;
+                Timer timer = new Timer(delay, new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        int timePassed = totalTimePassed.getAndAdd(delay);
+        
+                         if(true) {
+                            // if(HorseInstances.getInstance().getLeadingHorse().getDistanceTravelled() * width > backdrop.getCameraX()) {
+                        backdrop.movePanel(); // Move the background
+                         }
+        
+        
+                        // Loop through each horse and update its position
+                        ArrayList<HorseMover> horseMovers = HorseMoverInstances.getInstance().horseMovers;
+                        for(int i = 0; i < horseMovers.size(); i++) {
+                            HorseMover horseMover = horseMovers.get(i);
+                            Horse horse = horseMover.getHorse();
+        
+                            Rectangle bounds = horseMover.getBounds();
+                            int xCoord = horseRacer.getCoordinate(timePassed, delay, horse);
+                            bounds.setLocation(xCoord, bounds.y);
+                            horseMover.setBounds(bounds);
+        
+                            if(!horseMover.getPreviousFallenState()) {
+                                if(horse.hasFallen()) {
+                                    horseMover.setSprite(State.FALL);
+                                    System.out.println("setfalling");
+                                    horseMover.setPreviousFallenState();
+                                }
+                            }
                         }
                     }
-                }
-            }
-        });
-        timer.start();
+                });
+                timer.start();
     }
 
     public static void main(String[] args) {

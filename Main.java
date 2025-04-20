@@ -1,3 +1,5 @@
+import java.util.concurrent.TimeUnit;
+
 import GUI.GameGrid;
 import GUI.PrimaryPage;
 import Primary.Horse;
@@ -11,11 +13,17 @@ public class Main {
         HorseInstances.getInstance().addHorse(new Horse('C', "Cob", 0.8), 3);
         HorseInstances.getInstance().addHorse(new Horse('B', "Bob", 0.25), 2);
         //PrimaryPage.main(raceDistance);
-        GameGrid.main(raceDistance);
+        GameGrid grid = new GameGrid(raceDistance);
         // testHorse();
         Race race = new Race(raceDistance);
 
-        race.startRace();
+        try {
+            TimeUnit.SECONDS.sleep(3);
+        } catch (InterruptedException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        race.startRace(grid.getGameFrame());
     }
 
     public static void testHorse() {

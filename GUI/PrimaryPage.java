@@ -17,7 +17,7 @@ import Utils.State;
 
 public class PrimaryPage {
     public static void main(String[] args) {
-        GameGrid.main(null);
+        //GameGrid.main(null);
     // GameFrame gameFrame = new GameFrame();
     // gameFrame.setPreferredSize(new Dimension(300, 300)); 
     //      JFrame frame = MainMenu.getInstance().getFrame();
