@@ -100,8 +100,9 @@ public class SpriteSwitcherPanel extends JPanel {
         // Use a timer to replace the animation with the final frame after delay
         Timer freezeTimer = new Timer(1333, e -> {
             Image lastFrame = getLastFrame(fallPath);
+            BufferedImage scaledFrame = AnimatedSprite.scaleImage((BufferedImage) lastFrame, 0.35);
             if (lastFrame != null) {
-                spriteLabel.setIcon(new ImageIcon(lastFrame));
+                spriteLabel.setIcon(new ImageIcon(scaledFrame));
             }
         });
         freezeTimer.setRepeats(false);
