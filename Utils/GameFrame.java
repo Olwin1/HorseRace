@@ -75,7 +75,7 @@ public class GameFrame extends JPanel {
     public void startRace() {
                 // Set up a timer to move the background every 10 milliseconds
                 AtomicInteger totalTimePassed = new AtomicInteger(0);
-                int delay = 30;
+                int delay = 10;
                 Timer timer = new Timer(delay, new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {

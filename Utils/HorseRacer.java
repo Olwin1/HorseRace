@@ -24,7 +24,7 @@ public class HorseRacer {
         int backdropShift = timePassed / delay;
     
         // Get the horse's relative distance from the starting point in metres and multiply it by an amount to make it a noticable on screen.
-        double horsePositionInMetres = horse.getDistanceTravelled() * 8;
+        double horsePositionInMetres = horse.getDistanceTravelled() * 8 * 3;
     
         // Convert that to a pixel position relative to the full track
         double horsePositionInPixels = (horsePositionInMetres / (double) totalTrackDistance) * width;
