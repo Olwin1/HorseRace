@@ -88,7 +88,7 @@ public class AnimatedSprite extends JLabel {
      * @param scale
      * @return
      */
-    private static BufferedImage scaleImage(BufferedImage original, double scale) {
+    public static BufferedImage scaleImage(BufferedImage original, double scale) {
         // Define the new size of the image
         int width = (int) (original.getWidth() * scale);
         int height = (int) (original.getHeight() * scale);

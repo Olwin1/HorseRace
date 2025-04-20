@@ -98,6 +98,8 @@ public class GameFrame extends JPanel {
                     if(!horseMover.getPreviousFallenState()) {
                         if(horse.hasFallen()) {
                             horseMover.setSprite(State.FALL);
+                            System.out.println("setfalling");
+                            horseMover.setPreviousFallenState();
                         }
                     }
                 }
@@ -112,7 +114,7 @@ public class GameFrame extends JPanel {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         // Create the GameFrame (which extends JPanel)
-        GameFrame gamePanel = new GameFrame();
+        GameFrame gamePanel = new GameFrame(1000);
         
         // Add the GameFrame panel to the JFrame
         frame.add(gamePanel);

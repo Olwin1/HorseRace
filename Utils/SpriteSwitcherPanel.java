@@ -73,7 +73,7 @@ public class SpriteSwitcherPanel extends JPanel {
                 spriteLabel = runIcon;
                 break;
             case FALL:
-                spriteLabel = fallIcon;
+                playFallOnce();
                 break;
         }
     
@@ -95,14 +95,36 @@ public class SpriteSwitcherPanel extends JPanel {
      * @param gifPath The path to the fall animation GIF.
      */
     public void playFallOnce() {
-        //spriteLabel.setIcon(fallIcon);
+        // Replace the current sprite with the fall animation
+        remove(spriteLabel);
+
+        spriteLabel = fallIcon;
+
+        spriteLabel.setHorizontalAlignment(JLabel.CENTER);
+        spriteLabel.setOpaque(false);
+        add(spriteLabel, BorderLayout.CENTER);
+        revalidate();
+        repaint();
+
+
+
 
         // Use a timer to replace the animation with the final frame after delay
         Timer freezeTimer = new Timer(1333, e -> {
             Image lastFrame = getLastFrame(fallPath);
+            // Scale the image down to the correct size
             BufferedImage scaledFrame = AnimatedSprite.scaleImage((BufferedImage) lastFrame, 0.35);
             if (lastFrame != null) {
-                spriteLabel.setIcon(new ImageIcon(scaledFrame));
+
+                // Once fall animation is complete replace it with the static image of the horse fallen.  
+                remove(spriteLabel);
+                spriteLabel = new JLabel(new ImageIcon(scaledFrame));
+
+                spriteLabel.setHorizontalAlignment(JLabel.CENTER);
+                spriteLabel.setOpaque(false);
+                add(spriteLabel, BorderLayout.CENTER);
+                revalidate();
+                repaint();
             }
         });
         freezeTimer.setRepeats(false);
