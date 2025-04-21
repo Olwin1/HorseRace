@@ -1,18 +1,19 @@
 package Primary;
 
+import java.awt.Color;
+
 /**
  * The [Horse] class is used to provide all the various different methods
- * and instance variables related to an individual race horse.  
+ * and instance variables related to an individual race horse.
  * 
  * @author Oliver Munn
  * @version 2.0
  */
-public class Horse
-{
+public class Horse {
     /////////////////////////////////////////
     // Instance variables for horse class. //
     /////////////////////////////////////////
-    
+
     // Constructor-initialised fields
 
     /// Used to determine how the horse is represented on the screen. 
@@ -39,27 +40,29 @@ public class Horse
     /// Determines the colour of the horse that will race
     private HorseColour horseColour;
 
-
     /////////////////////////////////////
     // Horse class method definitions. //
     /////////////////////////////////////
-    
-      
+
     // Constructor of class Horse
     /**
-     * Creates a new instance of [Horse] taking three arguments: a [horseSymbol], [horseName], and [horseConfidence]
+     * Creates a new instance of [Horse] taking three arguments: a [horseSymbol],
+     * [horseName], and [horseConfidence]
      * 
-     * @param horseSymbol Will be used to determine how the horse is represented on the screen.  
-     * @param horseName Is used as the name of the horse.   
-     * @param horseConfidence Determines the speed of the horse and likelihood of falling.     
+     * @param horseSymbol     Will be used to determine how the horse is represented
+     *                        on the screen.
+     * @param horseName       Is used as the name of the horse.
+     * @param horseConfidence Determines the speed of the horse and likelihood of
+     *                        falling.
      * 
-     * @throws IllegalArgumentException Must be a value between 0 and 1 otherwise an [IllegalArgumentException] is thrown.  
+     * @throws IllegalArgumentException Must be a value between 0 and 1 otherwise an
+     *                                  [IllegalArgumentException] is thrown.
      */
-    public Horse(char horseSymbol, String horseName, double horseConfidence, HorseColour colour) throws IllegalArgumentException
-    {
-        if(horseConfidence > 1 || horseConfidence < 0) {
+    public Horse(char horseSymbol, String horseName, double horseConfidence, HorseColour colour)
+            throws IllegalArgumentException {
+        if (horseConfidence > 1 || horseConfidence < 0) {
             throw new IllegalArgumentException("Confidence must be a value between 0 and 1.");
-        } 
+        }
 
         // Set the provided arguments to the corresponding instance variables
         this.horseSymbol = horseSymbol;
@@ -67,12 +70,9 @@ public class Horse
         this.horseName = horseName;
         this.horseColour = colour;
 
-       
     }
-    
-    
-    
-    //Generic methods of class Horse
+
+    // Generic methods of class Horse
 
     /// Gets the horse's colour
     public HorseColour getColour() {
@@ -80,105 +80,139 @@ public class Horse
     }
 
     /// Sets the [hasFallen] flag to true.  
-    public void fall()
-    {
+    public void fall() {
         this.hasFallen = true;
     }
-    
+
     /**
-     * Gets the [horseConfidence] field. 
-     *  
-     * A higher confidence means the horse runs faster but is also more prone to falling.  
-     * A lower confidence means the horse runs slower but is more stable.  
+     * Gets the [horseConfidence] field.
      * 
-     * @return The horse confidence.  
+     * A higher confidence means the horse runs faster but is also more prone to
+     * falling.
+     * A lower confidence means the horse runs slower but is more stable.
+     * 
+     * @return The horse confidence.
      */
-    public double getConfidence()
-    {
+    public double getConfidence() {
         return this.horseConfidence;
     }
-    
+
     /**
-     * Gets the total distance the horse has travelled throughout the race.  
+     * Gets the total distance the horse has travelled throughout the race.
+     * 
      * @return The distance travelled.
      */
-    public int getDistanceTravelled()
-    {
+    public int getDistanceTravelled() {
         return this.distanceTravelled;
     }
-    
+
     /**
-     * Gets the horse's name.  
-     * @return The horse's name.  
+     * Gets the horse's name.
+     * 
+     * @return The horse's name.
      */
-    public String getName()
-    {
+    public String getName() {
         return this.horseName;
     }
-    
+
     /**
-     * Gets the symbol that is used to represent the horse during the race.  
-     * @return The horse's racing symbol.  
+     * Gets the symbol that is used to represent the horse during the race.
+     * 
+     * @return The horse's racing symbol.
      */
-    public char getSymbol()
-    {
+    public char getSymbol() {
         return this.horseSymbol;
     }
-    
+
     /**
      * Resets the horse's position in the race,
      * sending them back to the start by setting the [distanceTravelled] to 0
-     * This will also reset their [hasFallen] flag.  
+     * This will also reset their [hasFallen] flag.
      */
-    public void goBackToStart()
-    {
+    public void goBackToStart() {
         this.distanceTravelled = 0;
         this.hasFallen = false;
     }
-    
+
     /**
-     * Gets the flag that determines if the horse has fallen or not.  
-     * @return A boolean [hasFallen] indicator.  
+     * Gets the flag that determines if the horse has fallen or not.
+     * 
+     * @return A boolean [hasFallen] indicator.
      */
-    public boolean hasFallen()
-    {
+    public boolean hasFallen() {
         return this.hasFallen;
     }
 
     /**
-     * Moves the horse forwards 1 by 
-     * incrementing [distanceTravelled] by 1.   
+     * Moves the horse forwards 1 by
+     * incrementing [distanceTravelled] by 1.
      */
-    public void moveForward()
-    {
+    public void moveForward() {
         this.distanceTravelled += 1;
     }
 
     /**
-     * Setter to set a new horse confidence.  
-     * @param newConfidence  
-     * A higher confidence means the horse runs faster but is also more prone to falling.  
-     * A lower confidence means the horse runs slower but is more stable.  
+     * Setter to set a new horse confidence.
      * 
-     * @throws IllegalArgumentException If number is out of range.  Must be a double between 0 and 1.    
+     * @param newConfidence
+     *                      A higher confidence means the horse runs faster but is
+     *                      also more prone to falling.
+     *                      A lower confidence means the horse runs slower but is
+     *                      more stable.
+     * 
+     * @throws IllegalArgumentException If number is out of range. Must be a double
+     *                                  between 0 and 1.
      */
-    public void setConfidence(double newConfidence) throws IllegalArgumentException
-    {
-        if(newConfidence > 1 || newConfidence < 0) {
+    public void setConfidence(double newConfidence) throws IllegalArgumentException {
+        if (newConfidence > 1 || newConfidence < 0) {
             throw new IllegalArgumentException("Confidence must be a value between 0 and 1.");
-        } 
+        }
         this.horseConfidence = newConfidence;
     }
-    
+
     /**
-     * Setter to set a new horse symbol.  
-     * This is used to change the symbol that is used to represent the horse during the race.  
+     * Setter to set a new horse symbol.
+     * This is used to change the symbol that is used to represent the horse during
+     * the race.
      * 
-     * @param newSymbol A character parameter that will replace the existing horse symbol on the screen.  
+     * @param newSymbol A character parameter that will replace the existing horse
+     *                  symbol on the screen.
      */
-    public void setSymbol(char newSymbol)
-    {
+    public void setSymbol(char newSymbol) {
         this.horseSymbol = newSymbol;
     }
-    
+
+    /**
+     * Simple method to help in resolving an actual colour from a [HorseColour]
+     * 
+     * @param colour The [HorseColour] that you want to parse
+     * @return an actual [Color] instance representing an approximation of the
+     *         [HorseColour]
+     */
+    public static Color parseHorseColour(HorseColour colour) {
+        // Declare the parsedColour variable
+        Color parsedColour;
+        // Switch-case to assign it.
+        switch (colour) {
+            case HorseColour.BLUE:
+                parsedColour = Color.BLUE;
+                break;
+            case HorseColour.GREEN:
+                parsedColour = Color.GREEN;
+                break;
+            case HorseColour.PURPLE:
+                parsedColour = Color.MAGENTA;
+                break;
+            case HorseColour.RED:
+                parsedColour = Color.RED;
+                break;
+            default:
+                parsedColour = Color.darkGray;
+                break;
+
+        }
+        // Return the approximation of colour back to the caller
+        return parsedColour;
+    }
+
 }
