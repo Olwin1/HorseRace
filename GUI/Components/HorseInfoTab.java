@@ -6,11 +6,13 @@ import java.awt.Dimension;
 import java.awt.Font;
 
 import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import Primary.Horse;
 import Utils.CustomFont;
+import Utils.LoadImageIcon;
 
 /**
  * Definition for a tab to display various different configuration options &
@@ -35,11 +37,18 @@ public class HorseInfoTab extends JPanel {
         boolean hasHorse = horse != null;
 
         // Ensure expands correctly
-        setLayout(new BorderLayout());
+        setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
         // Set the background colour to light lavender
         setBackground(new Color(230, 230, 250));
+
+        /////////////////////////////////////
+        // Below is the top row of the tab //
+        /////////////////////////////////////
+
+        JPanel topRow = new JPanel();
+        topRow.setLayout(new BorderLayout());
 
         // Create and add a symbol label
         symbolLabel = new JLabel(hasHorse ? Character.toString(horse.getSymbol()) : "");
@@ -48,23 +57,65 @@ public class HorseInfoTab extends JPanel {
         symbolLabel.setForeground(hasHorse ? Horse.parseHorseColour(horse.getColour()) : Color.WHITE);
         symbolLabel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
-        add(symbolLabel, BorderLayout.LINE_START);
+        topRow.add(symbolLabel, BorderLayout.LINE_START);
 
         // Create and add a name label
         nameLabel = new JLabel(hasHorse ? horse.getName() : "empty");
         nameLabel.setFont(defaultFont);
 
-        add(nameLabel, BorderLayout.CENTER);
+        topRow.add(nameLabel, BorderLayout.CENTER);
 
         // Create and add a confidence label
         confidenceLabel = new JLabel(
                 String.format("Confidence: %s%%", hasHorse ? String.format("%,.1f", horse.getConfidence() * 100) : ""));
-                confidenceLabel.setFont(bodyFont);
+        confidenceLabel.setFont(bodyFont);
 
-        add(confidenceLabel, BorderLayout.LINE_END);
+        topRow.add(confidenceLabel, BorderLayout.LINE_END);
+
+        // Add the row to the rest of the tab
+        add(topRow);
+
+        ////////////////////////////////
+        // Below is bottom row of tab //
+        ////////////////////////////////
+
+        JPanel bottomRow = new JPanel();
+        bottomRow.setLayout(new BorderLayout());
+
+        JPanel rightPanel = new JPanel();
+        rightPanel.setLayout(new BorderLayout());
+
+        PixelatedButton delete = new PixelatedButton(14, new Color(255, 0, 0), new Color(140, 0, 0),
+                new Color(55, 0, 0), Color.WHITE);
+        PixelatedButton moveUp = new PixelatedButton(14, new Color(0, 0, 255), new Color(0, 0, 140),
+                new Color(0, 0, 55), Color.WHITE);
+        PixelatedButton moveDown = new PixelatedButton(14, new Color(0, 0, 255), new Color(0, 0, 140),
+                new Color(0, 0, 55), Color.WHITE);
+
+        moveUp.setIcon(LoadImageIcon.main("move_up"));
+        moveDown.setIcon(LoadImageIcon.main("move_down"));
+        delete.setIcon(LoadImageIcon.main("delete"));
+
+        moveUp.setBorder(BorderFactory.createEmptyBorder(0, 5, 0, 5));
+        moveDown.setBorder(BorderFactory.createEmptyBorder(0, 5, 0, 5));
+        moveUp.setMaximumSize(new Dimension(16, 16));
+        moveDown.setMaximumSize(new Dimension(16, 16));
+
+        delete.setBorder(BorderFactory.createEmptyBorder(0, 5, 0, 5));
+        delete.setMaximumSize(new Dimension(16, 16));
+
+        rightPanel.add(delete, BorderLayout.LINE_END);
+
+        rightPanel.add(moveUp, BorderLayout.LINE_START);
+        rightPanel.add(moveDown, BorderLayout.CENTER);
+
+        bottomRow.add(rightPanel, BorderLayout.LINE_END);
+        bottomRow.setBorder(BorderFactory.createEmptyBorder(0, 0, 5, 0));
+
+        add(bottomRow);
 
         // Expand to full width
-        setMaximumSize(new Dimension(Integer.MAX_VALUE, 50));
+        // setMaximumSize(new Dimension(Integer.MAX_VALUE, 50));
     }
 
 }

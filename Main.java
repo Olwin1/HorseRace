@@ -1,10 +1,8 @@
 import java.util.concurrent.TimeUnit;
 
-import GUI.GameGrid;
 import GUI.StartPage;
 import Primary.Horse;
 import Primary.HorseColour;
-import Primary.Race;
 import Utils.HorseInstances;
 
 public class Main {
