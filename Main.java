@@ -1,6 +1,7 @@
 import java.util.concurrent.TimeUnit;
 
 import GUI.GameGrid;
+import GUI.StartPage;
 import Primary.Horse;
 import Primary.HorseColour;
 import Primary.Race;
@@ -16,10 +17,12 @@ public class Main {
         HorseInstances.getInstance().addHorse(new Horse('C', "Cob", 0.8, HorseColour.GREEN), 3);
         HorseInstances.getInstance().addHorse(new Horse('B', "Bob", 0.25, HorseColour.PURPLE), 2);
 
-        // Create a grid instance
-        GameGrid grid = new GameGrid(raceDistance);
-        // testHorse();
-        Race race = new Race(raceDistance);
+        // // Create a grid instance
+        // GameGrid grid = new GameGrid(raceDistance);
+        // // testHorse();
+        // Race race = new Race(raceDistance);
+
+        StartPage startPage = new StartPage();
 
         try {
             // Wait 3 seconds
@@ -30,6 +33,6 @@ public class Main {
         }
 
         // Start the race in the grid
-        race.startRace(grid.getGameFrame());
+        //race.startRace(grid.getGameFrame());
     }
 }
