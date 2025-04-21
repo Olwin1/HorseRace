@@ -6,6 +6,8 @@ import GUI.Components.PixelatedButton;
 import Utils.CustomFont;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 /**
  * Simple page to be displayed on initial open.
@@ -49,6 +51,17 @@ public class StartPage {
 
             // Ensure it lines up in the middle
             pixelatedButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+            // Handler for when button is pressed
+            pixelatedButton.addActionListener(new ActionListener() {
+
+                // When pressed display the race launch page
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    LaunchPage.displayLaunchPage();
+                }
+
+            });
 
             // Add it to the inner panel. After the label so it appears below.
             innerJPanel.add(pixelatedButton);
