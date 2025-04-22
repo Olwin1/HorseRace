@@ -1,6 +1,7 @@
 package GUI.Components;
 
 import java.awt.Component;
+import java.util.ArrayList;
 
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
@@ -8,6 +9,7 @@ import javax.swing.JScrollPane;
 
 import Primary.Horse;
 import Primary.HorseColour;
+import Utils.HorseInstances;
 
 /**
  * Panel to display the lanes that will be used in the race along with the
@@ -28,12 +30,25 @@ public class HorseLineup extends JPanel {
         scrollPane.getVerticalScrollBar().setUnitIncrement(16); // smoother scrolling
 
         // Adding custom panels
-        for (int i = 0; i < 20; i++) {
-            HorseInfoTab panel = new HorseInfoTab(new Horse('0', "Jadzia", 0.5, HorseColour.BLUE));
+        updateLanes(listPanel);
+
+        add(scrollPane);
+    }
+
+    private void updateLanes(JPanel listPanel) {
+        // Remove outdated lanes
+        listPanel.removeAll();
+
+        // Re-add all lanes
+        ArrayList<Horse> horseLanes = HorseInstances.getInstance().getHorses();
+        for (int i = 0; i < horseLanes.size(); i++) {
+            HorseInfoTab panel = new HorseInfoTab(i, horseLanes.get(i), () -> updateLanes(listPanel));
             panel.setAlignmentX(Component.LEFT_ALIGNMENT); // respect box layout
             listPanel.add(panel);
         }
 
-        add(scrollPane);
+        // Repaint the UI to reflect this new change
+        listPanel.revalidate();
+        listPanel.repaint();
     }
 }

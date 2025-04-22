@@ -4,6 +4,9 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.function.Supplier;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -11,8 +14,10 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
 
+import GUI.LaunchPage;
 import Primary.Horse;
 import Utils.CustomFont;
+import Utils.HorseInstances;
 import Utils.LoadImageIcon;
 
 /**
@@ -30,10 +35,13 @@ public class HorseInfoTab extends JPanel {
         /**
          * Will create a tab to be used in a scroll view.
          * 
-         * @param horse takes a [Horse] instance or `null` if the horse in that lane is
-         *              currently unknown.
+         * @param horse       takes a [Horse] instance or `null` if the horse in that
+         *                    lane is
+         *                    currently unknown.
+         * @param updateLanes a runnable to be called whenever data is changed that will
+         *                    update the entire list.
          */
-        public HorseInfoTab(Horse horse) {
+        public HorseInfoTab(int i, Horse horse, Runnable updateLanes) {
                 // Check if a horse has been provided
                 boolean hasHorse = horse != null;
 
@@ -96,11 +104,14 @@ public class HorseInfoTab extends JPanel {
                                 new Color(0, 0, 55), Color.WHITE);
                 PixelatedButton moveDown = new PixelatedButton(14, new Color(0, 0, 255), new Color(0, 0, 140),
                                 new Color(0, 0, 55), Color.WHITE);
+                PixelatedButton addLane = new PixelatedButton(14, new Color(0, 155, 0), new Color(0, 120, 0),
+                                new Color(0, 55, 0), Color.WHITE);
 
                 // Set the icons of the buttons
                 moveUp.setIcon(LoadImageIcon.main("move_up"));
                 moveDown.setIcon(LoadImageIcon.main("move_down"));
                 delete.setIcon(LoadImageIcon.main("delete"));
+                addLane.setIcon(LoadImageIcon.main("add"));
 
                 // Ensure they are correctly spaced and sized
                 Border border = BorderFactory.createEmptyBorder(2, 5, 2, 5);
@@ -108,11 +119,55 @@ public class HorseInfoTab extends JPanel {
 
                 moveUp.setBorder(border);
                 moveDown.setBorder(border);
+                addLane.setBorder(border);
                 moveUp.setMaximumSize(dimensions);
                 moveDown.setMaximumSize(dimensions);
+                addLane.setMaximumSize(dimensions);
 
                 delete.setBorder(border);
                 delete.setMaximumSize(dimensions);
+
+                // Handle Button actions
+                moveUp.addActionListener(new ActionListener() {
+
+                        // When pressed move the horse up
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
+                                handleHorseMove(true, i, updateLanes);
+                        }
+
+                });
+                moveDown.addActionListener(new ActionListener() {
+
+                        // When pressed move the horse down
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
+                                handleHorseMove(false, i, updateLanes);
+                        }
+
+                });
+
+                delete.addActionListener(new ActionListener() {
+
+                        // When pressed remove the lane & the horse if it has one
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
+                                HorseInstances.getInstance().removeHorse(i);
+                                updateLanes.run();
+                        }
+
+                });
+                addLane.addActionListener(new ActionListener() {
+                        // When pressed add the lane
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
+                                // Add an empty lane and update the list
+                                HorseInstances horseInstance = HorseInstances.getInstance();
+                                horseInstance.addHorse(null, horseInstance.getHorses().size() + 1);
+                                updateLanes.run();
+                        }
+
+                });
 
                 // Add buttons to the inner panel
                 rightPanel.add(delete, BorderLayout.LINE_END);
@@ -123,10 +178,24 @@ public class HorseInfoTab extends JPanel {
                 // Add the inner panel to the bottom row and add a bit of padding so the buttons
                 // aren't right against the bottom
                 bottomRow.add(rightPanel, BorderLayout.LINE_END);
+
+                // Add the add lane button to the left of the row.
+                bottomRow.add(addLane, BorderLayout.LINE_START);
+
                 bottomRow.setBorder(BorderFactory.createEmptyBorder(0, 0, 5, 0));
 
                 // Add the bottom row to the tab
                 add(bottomRow);
+        }
+
+        private void handleHorseMove(boolean isUp, int i, Runnable updateLanes) {
+                HorseInstances horseInstances = HorseInstances.getInstance();
+                if (isUp) {
+                        horseInstances.moveHorseUp(i);
+                } else {
+                        horseInstances.moveHorseDown(i);
+                }
+                updateLanes.run();
         }
 
 }

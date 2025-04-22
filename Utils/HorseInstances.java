@@ -73,4 +73,49 @@ public class HorseInstances {
         return leadingHorse;
     }
 
+    /**
+     * Method to move the desired horse up a lane. If the horse is already at the
+     * top then nothing happens.
+     * 
+     * @param index The index of the horse to move up
+     */
+    public void moveHorseUp(int index) {
+        // If horse is already at top then do nothing
+        if (index == 0) {
+            return;
+        } else {
+            // Otherwise swap the horse above and the selected horse
+            Horse holdHorse = horses.get(index);
+            horses.set(index, horses.get(index - 1));
+            horses.set(index - 1, holdHorse);
+        }
+    }
+
+    /**
+     * Method to move the desired horse down a lane. If the horse is already at the
+     * bottom then nothing happens.
+     * 
+     * @param index The index of the horse to move down
+     */
+    public void moveHorseDown(int index) {
+        // If horse is already at bottom then do nothing
+        if (index == horses.size() - 1) {
+            return;
+        } else {
+            // Otherwise swap the horse below and the selected horse
+            Horse holdHorse = horses.get(index);
+            horses.set(index, horses.get(index + 1));
+            horses.set(index + 1, holdHorse);
+        }
+    }
+
+    /**
+     * Removes the horse in a given lane and moves the rest up by 1
+     * 
+     * @param laneNumber the lane that will be removed
+     */
+    public void removeHorse(int laneNumber) {
+        // Remove the lane at the specified `laneNumber`
+        horses.remove(laneNumber);
+    }
 }
