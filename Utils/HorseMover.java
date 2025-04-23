@@ -10,7 +10,7 @@ public class HorseMover extends SpriteSwitcherPanel {
     private boolean previousFallenState = false;
 
     public HorseMover(int startX, int startY, int width, int height, Horse horse) {
-        super(horse.getColour());
+        super(horse.getColour(), horse.getSaddle());
         this.x = startX;
         this.y = startY;
         this.horse = horse;

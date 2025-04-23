@@ -20,10 +20,10 @@ public class AnimatedSprite extends JLabel {
     private Timer timer;
     private int frameDelay = 83;
 
-    public AnimatedSprite(String filePath) {
+    public AnimatedSprite(String filePath, boolean hasSaddle, String saddleGifPath) {
         try {
             // Convert the animation to a series of images
-            this.frames = convertGIF(filePath, 0.35);
+            this.frames = convertGIF(filePath, 0.35, hasSaddle, saddleGifPath);
         } catch (Exception e) {
             // If errors then print stacktrace and assume there are simply no frames
             e.printStackTrace();
@@ -128,34 +128,41 @@ public class AnimatedSprite extends JLabel {
      * @return an image sequence
      * @throws Exception
      */
-    public static ArrayList<BufferedImage> convertGIF(String gifPath, double scale) throws Exception {
-        // Declares an [ArrayList] of [BufferedImage] to store each frame of the GIF
+    public static ArrayList<BufferedImage> convertGIF(String gifPath, double scale, boolean hasSaddle, String saddleGifPath) throws Exception {
         ArrayList<BufferedImage> frames = new ArrayList<>();
-
-        // Creates an iterator for the GIF
+    
+        // Read base GIF (horse)
         ImageInputStream stream = ImageIO.createImageInputStream(new File(gifPath));
         Iterator<ImageReader> readers = ImageIO.getImageReaders(stream);
-
-        if (!readers.hasNext())
-            throw new RuntimeException("No reader for: " + gifPath);
+        if (!readers.hasNext()) throw new RuntimeException("No reader for: " + gifPath);
         ImageReader reader = readers.next();
         reader.setInput(stream);
-
-        // Loop through each frame
         int numFrames = reader.getNumImages(true);
+    
+        // Read saddle GIF frames (if hasSaddle is true)
+        ArrayList<BufferedImage> saddleFrames = new ArrayList<>();
+        if (hasSaddle) {
+            ImageInputStream saddleStream = ImageIO.createImageInputStream(new File(saddleGifPath));
+            Iterator<ImageReader> saddleReaders = ImageIO.getImageReaders(saddleStream);
+            if (!saddleReaders.hasNext()) throw new RuntimeException("No reader for saddle GIF: " + saddleGifPath);
+            ImageReader saddleReader = saddleReaders.next();
+            saddleReader.setInput(saddleStream);
+            for (int i = 0; i < numFrames; i++) {
+                saddleFrames.add(saddleReader.read(i));
+            }
+            saddleReader.dispose();
+            saddleStream.close();
+        }
+    
         for (int i = 0; i < numFrames; i++) {
-            // Load the frame
             BufferedImage frame = reader.read(i);
             BufferedImage transparentFrame = new BufferedImage(
                     frame.getWidth(), frame.getHeight(), BufferedImage.TYPE_INT_ARGB);
-
-            // Go through each pixel of the frame and make it transparent if it should be
+    
             for (int y = 0; y < frame.getHeight(); y++) {
                 for (int x = 0; x < frame.getWidth(); x++) {
                     int rgba = frame.getRGB(x, y);
                     Color c = new Color(rgba, true);
-
-                    // Replace black with transparent
                     if (c.getRed() == 255 && c.getGreen() == 255 && c.getBlue() == 0) {
                         transparentFrame.setRGB(x, y, 0x00000000);
                     } else {
@@ -163,18 +170,21 @@ public class AnimatedSprite extends JLabel {
                     }
                 }
             }
-            // Scale the image to the designated size
+    
+            if (hasSaddle) {
+                BufferedImage saddle = saddleFrames.get(i);
+                Graphics2D g = transparentFrame.createGraphics();
+                g.drawImage(saddle, 0, 0, null);
+                g.dispose();
+            }
+    
             BufferedImage scaledFrame = scaleImage(transparentFrame, scale);
-
-            // Add the frame to the [ArrayList]
             frames.add(scaledFrame);
         }
-
-        // Cleanup
+    
         reader.dispose();
         stream.close();
-
-        // Return list of frames
         return frames;
     }
+    
 }

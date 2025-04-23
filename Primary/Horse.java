@@ -40,6 +40,8 @@ public class Horse {
     /// Determines the colour of the horse that will race
     private HorseColour horseColour;
 
+    private boolean hasSaddle = true;
+
     /////////////////////////////////////
     // Horse class method definitions. //
     /////////////////////////////////////
@@ -122,6 +124,15 @@ public class Horse {
      */
     public char getSymbol() {
         return this.horseSymbol;
+    }
+
+    /**
+     * Gets a boolean denoting whether the horse should have a saddle or not.
+     * 
+     * @return a boolean
+     */
+    public boolean getSaddle() {
+        return this.hasSaddle;
     }
 
     /**
