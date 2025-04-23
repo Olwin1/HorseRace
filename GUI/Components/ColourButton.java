@@ -31,35 +31,71 @@ public class ColourButton extends JButton {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // Depending on the current state switch it to the next value along so it cycles.  
-                switch (currentState) {
-                    case BLUE:
-                        currentState = HorseColour.GREEN;
-                        setText("G");
-                        setBackground(Horse.parseHorseColour(currentState));
-                        break;
-                    case GREEN:
-                        currentState = HorseColour.PURPLE;
-                        setText("P");
-                        setBackground(Horse.parseHorseColour(currentState));
-                        break;
-                    case PURPLE:
-                        currentState = HorseColour.RED;
-                        setText("R");
-                        setBackground(Horse.parseHorseColour(currentState));
-                        break;
-                    case RED:
-                    currentState = HorseColour.DEFAULT;
-                    setText("D");
-                    setBackground(Horse.parseHorseColour(currentState));
-                        break;
-                    default:
-                    currentState = HorseColour.BLUE;
-                    setText("B");
-                    setBackground(Horse.parseHorseColour(currentState));
-                        break;
-                }
+                updateState();
+
             }
         });
+    }
+
+    private void updateState() {
+        switch (currentState) {
+            case BLUE:
+                currentState = HorseColour.GREEN;
+                setText("G");
+                setBackground(Horse.parseHorseColour(currentState));
+                break;
+            case GREEN:
+                currentState = HorseColour.PURPLE;
+                setText("P");
+                setBackground(Horse.parseHorseColour(currentState));
+                break;
+            case PURPLE:
+                currentState = HorseColour.RED;
+                setText("R");
+                setBackground(Horse.parseHorseColour(currentState));
+                break;
+            case RED:
+            currentState = HorseColour.DEFAULT;
+            setText("D");
+            setBackground(Horse.parseHorseColour(currentState));
+                break;
+            default:
+            currentState = HorseColour.BLUE;
+            setText("B");
+            setBackground(Horse.parseHorseColour(currentState));
+                break;
+        }
+    }
+
+    private void updateState(HorseColour newState) {
+        this.currentState = newState;
+        switch (currentState) {
+            case GREEN:
+                currentState = HorseColour.GREEN;
+                setText("G");
+                setBackground(Horse.parseHorseColour(currentState));
+                break;
+            case PURPLE:
+                currentState = HorseColour.PURPLE;
+                setText("P");
+                setBackground(Horse.parseHorseColour(currentState));
+                break;
+            case RED:
+                currentState = HorseColour.RED;
+                setText("R");
+                setBackground(Horse.parseHorseColour(currentState));
+                break;
+            case DEFAULT:
+            currentState = HorseColour.DEFAULT;
+            setText("D");
+            setBackground(Horse.parseHorseColour(currentState));
+                break;
+            default:
+            currentState = HorseColour.BLUE;
+            setText("B");
+            setBackground(Horse.parseHorseColour(currentState));
+                break;
+        }
     }
 
 /**
@@ -69,4 +105,12 @@ public class ColourButton extends JButton {
     public HorseColour getSelected() {
         return this.currentState;
     }
+
+/**
+ * Mutator method to set the current selected value.  
+ * @param horseColour The new [HorseColour] value
+ */
+public void setSelected(HorseColour horseColour) {
+                updateState(horseColour);
+}
 }

@@ -5,7 +5,10 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
+import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -108,6 +111,9 @@ public class RightConfiguration extends JPanel {
             // Set the font to match everything else
             characterInput.setFont(customFont);
 
+            // Set the existing value to match the horse
+            characterInput.setText(Character.toString(currentHorse.getSymbol()));
+
             // Add to the section panel
             characterPanel.add(characterInputTitle);
             characterPanel.add(characterInput);
@@ -128,6 +134,9 @@ public class RightConfiguration extends JPanel {
             JTextField horseName = new JTextField(13); // give it a preferred size
             horseName.setMaximumSize(new Dimension(horseName.getMaximumSize().width, 25));
             horseName.setFont(customFont);
+
+            // Set the existing value to match the horse
+            horseName.setText(currentHorse.getName());
 
             // Add to the section panel
             characterPanel.add(horseNameTitle);
@@ -150,6 +159,9 @@ public class RightConfiguration extends JPanel {
             ColourButton horseColour = new ColourButton();
 
             horseColour.setFont(customFont);
+
+            // Set the existing value to match the horse
+            horseColour.setSelected(currentHorse.getColour());
 
             // Add to the section panel
             horseColourPanel.add(horseColourTitle);
@@ -174,12 +186,54 @@ public class RightConfiguration extends JPanel {
                     new Color(0, 43, 0), Color.WHITE);
             horseSaveButton.setText("Save");
 
+            horseSaveButton.addActionListener(new ActionListener() {
+
+                // When pressed move the horse down
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    currentHorse.setSymbol(characterInput.getText().charAt(0));
+                    currentHorse.setName(horseName.getText());
+                    currentHorse.setColour(horseColour.getSelected());
+                    HorseLineup.getInstance().updateLanes();
+                }
+
+            });
+
             // Add to the section panel
             horseSavePanel.add(horseSaveTitle);
             horseSavePanel.add(horseSaveButton);
 
             // Add to the main panel
             mainPanel.add(horseSavePanel);
+
+
+            //////////////////////////////
+            // Horse confidence section //
+            //////////////////////////////
+
+            // Create a new panel for the section
+            JPanel horseConfidencePanel = new JPanel();
+            horseConfidencePanel.setLayout(new BoxLayout(horseConfidencePanel, BoxLayout.Y_AXIS));
+
+            JLabel horseConfidenceTitle = new JLabel();
+            horseConfidenceTitle.setText("Horse Confidence");
+            horseConfidenceTitle.setFont(customFont);
+            JLabel horseConfidence = new JLabel();
+
+            horseConfidence.setFont(customFont);
+
+            // Set the value to match the horse
+            horseConfidence.setText(String.format("%,.1f%%", currentHorse.getConfidence() * 100));
+
+            // Add to the section panel
+            horseConfidencePanel.add(horseConfidenceTitle);
+            horseConfidencePanel.add(horseConfidence);
+
+            horseConfidencePanel.setBorder(BorderFactory.createEmptyBorder(55, 0, 0, 0));
+
+            // Add to the main panel
+            mainPanel.add(horseConfidencePanel);
+
 
             // Add all the sections to the listPanel
             listPanel.add(mainPanel, BorderLayout.CENTER);

@@ -183,6 +183,31 @@ public class Horse {
     }
 
     /**
+     * Setter to set a new horse name.
+     * This is used to change the name that is used to represent the horse during
+     * the race.
+     * 
+     * @param newName A string parameter that will replace the existing horse
+     *                name on the screen.
+     */
+    public void setName(String newName) {
+        this.horseName = newName;
+    }
+
+    /**
+     * Setter to set a new horse colour.
+     * This is used to change the colour that is used to represent the horse during
+     * the race.
+     * 
+     * @param newColour A [HorseColour] parameter that will replace the existing
+     *                  horse
+     *                  colour on the screen.
+     */
+    public void setColour(HorseColour newColour) {
+        this.horseColour = newColour;
+    }
+
+    /**
      * Simple method to help in resolving an actual colour from a [HorseColour]
      * 
      * @param colour The [HorseColour] that you want to parse
