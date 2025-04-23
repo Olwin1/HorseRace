@@ -43,11 +43,13 @@ public class SaddleButton extends JButton {
     private void setEnabled() {
         setText("Has Saddle");
         setBackground(Color.GREEN);
+        setForeground(Color.BLACK);
     }
 
     private void setDisabled() {
         setText("No Saddle");
         setBackground(Color.BLUE);
+        setForeground(Color.WHITE);
     }
 
     /**
