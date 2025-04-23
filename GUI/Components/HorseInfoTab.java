@@ -6,7 +6,7 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.function.Supplier;
+import java.awt.event.MouseAdapter;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -14,7 +14,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
 
-import GUI.LaunchPage;
+import java.awt.event.MouseEvent;
+
 import Primary.Horse;
 import Utils.CustomFont;
 import Utils.HorseInstances;
@@ -28,6 +29,9 @@ public class HorseInfoTab extends JPanel {
         private JLabel nameLabel;
         private JLabel symbolLabel;
         private JLabel confidenceLabel;
+        private static final Color backgroundColour = new Color(230, 230, 250);
+        private static final Color hoverColour = new Color(200, 200, 220);
+        private static final Color clickedColour = new Color(180, 180, 200);
 
         private static Font defaultFont = CustomFont.getFont(18f);
         private static Font bodyFont = CustomFont.getFont(14f);
@@ -50,7 +54,7 @@ public class HorseInfoTab extends JPanel {
                 setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
                 // Set the background colour to light lavender
-                setBackground(new Color(230, 230, 250));
+                setBackground(backgroundColour);
 
                 /////////////////////////////////////
                 // Below is the top row of the tab //
@@ -186,8 +190,53 @@ public class HorseInfoTab extends JPanel {
 
                 // Add the bottom row to the tab
                 add(bottomRow);
+
+                /////////////////////////////
+                // Mouse selection section //
+                /////////////////////////////
+
+                // Add a mouse listener
+                addMouseListener(new MouseAdapter() {
+                        // Call when the mouse is pressed (i.e. a click)
+                        @Override
+                        public void mousePressed(MouseEvent e) {
+                                RightConfiguration.getInstance().updateSelection(i);
+                                // Set the background to show the section has been clicked.
+                                setBackground(clickedColour);
+                        }
+
+                        // Call when the mouse is released
+                        @Override
+                        public void mouseReleased(MouseEvent e) {
+                                // Set the background to show the section is being hovered on.
+                                setBackground(hoverColour);
+                        }
+
+                        // Call when the mouse enters the section
+                        @Override
+                        public void mouseEntered(MouseEvent e) {
+                                // Set the background to the hover colour as it is no longer being clicked.
+                                setBackground(hoverColour);
+                        }
+
+                        // Call when the mouse exits the section
+                        @Override
+                        public void mouseExited(MouseEvent e) {
+                                // Set the background back to the original background colour.
+                                setBackground(backgroundColour);
+                        }
+
+                });
+
         }
 
+        /**
+         * Handle the horse lane move
+         * 
+         * @param isUp        boolean to determine whether to move them up or down
+         * @param i           index of lane
+         * @param updateLanes runnable to update the UI
+         */
         private void handleHorseMove(boolean isUp, int i, Runnable updateLanes) {
                 HorseInstances horseInstances = HorseInstances.getInstance();
                 if (isUp) {
