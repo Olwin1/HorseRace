@@ -16,13 +16,24 @@ import Utils.HorseInstances;
  * horses within them.
  */
 public class HorseLineup extends JPanel {
+    private static HorseLineup instance;
+    private JPanel listPanel;
+
+        // Public static method to get the singleton instance
+        public static HorseLineup getInstance() {
+            if (instance == null) {
+                instance = new HorseLineup();
+            }
+            return instance;
+        }
+
     /**
      * Create an instance of [HorseLineup] is a child of the [JPanel] class and so
      * functions identically.
      */
-    public HorseLineup() {
+    private HorseLineup() {
         // Main container panel with vertical layout
-        JPanel listPanel = new JPanel();
+        listPanel = new JPanel();
         listPanel.setLayout(new BoxLayout(listPanel, BoxLayout.Y_AXIS));
 
         // Scroll pane wrapping the listPanel
@@ -30,19 +41,19 @@ public class HorseLineup extends JPanel {
         scrollPane.getVerticalScrollBar().setUnitIncrement(16); // smoother scrolling
 
         // Adding custom panels
-        updateLanes(listPanel);
+        updateLanes();
 
         add(scrollPane);
     }
 
-    private void updateLanes(JPanel listPanel) {
+    public void updateLanes() {
         // Remove outdated lanes
         listPanel.removeAll();
 
         // Re-add all lanes
         ArrayList<Horse> horseLanes = HorseInstances.getInstance().getHorses();
         for (int i = 0; i < horseLanes.size(); i++) {
-            HorseInfoTab panel = new HorseInfoTab(i, horseLanes.get(i), () -> updateLanes(listPanel));
+            HorseInfoTab panel = new HorseInfoTab(i, horseLanes.get(i), () -> updateLanes());
             panel.setAlignmentX(Component.LEFT_ALIGNMENT); // respect box layout
             listPanel.add(panel);
         }

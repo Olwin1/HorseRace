@@ -11,6 +11,7 @@ import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
 import GUI.Components.HorseLineup;
+import GUI.Components.RightConfiguration;
 
 /**
  * The page displayed just before a race displaying the lane setup and more.
@@ -34,7 +35,7 @@ public class LaunchPage {
 
             // Main Screen Panel
             // This panel will show the lane setup
-            JPanel mainPanel = new HorseLineup();
+            JPanel mainPanel = HorseLineup.getInstance();
             // Set to a grid layout so children expand to fill space
             mainPanel.setLayout(new GridLayout(0, 1));
             mainPanel.setBackground(Color.BLACK); // screen look
@@ -45,9 +46,10 @@ public class LaunchPage {
             gbc.fill = GridBagConstraints.BOTH;
             container.add(mainPanel, gbc);
 
-            // Right Betting Panel
-            JPanel rightPanel = new JPanel();
+            // Right Betting Panel & horse settings
+            JPanel rightPanel = RightConfiguration.getInstance();
             rightPanel.setBackground(Color.LIGHT_GRAY);
+            rightPanel.setLayout(new GridLayout(0, 1));
             gbc.gridx = 2;
             gbc.gridy = 1;
             gbc.weightx = 0.5;
