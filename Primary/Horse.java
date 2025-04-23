@@ -40,7 +40,7 @@ public class Horse {
     /// Determines the colour of the horse that will race
     private HorseColour horseColour;
 
-    private boolean hasSaddle = true;
+    private boolean hasSaddle = false;
 
     /////////////////////////////////////
     // Horse class method definitions. //
@@ -216,6 +216,36 @@ public class Horse {
      */
     public void setColour(HorseColour newColour) {
         this.horseColour = newColour;
+    }
+
+    /**
+     * Sets a boolean denoting whether the horse should have a saddle or not.
+     * Will update the horse confidence to reflect this change
+     * 
+     * @param newHasSaddle the new value to use
+     */
+    public void setSaddle(boolean newHasSaddle) {
+        // If the value has changed then update the horse confidence
+        if (this.hasSaddle != newHasSaddle) {
+            if (newHasSaddle) {
+                // If the saddle is added then increase the confidence by 0.025 (or less if it
+                // reaches 1)
+                try {
+                    setConfidence(horseConfidence + 0.025);
+                } catch (IllegalArgumentException e) {
+                    setConfidence(1);
+                }
+            } else {
+                // If the saddle is removed then decrease the confidence by 0.025 (or less if it
+                // reaches 0)
+                try {
+                    setConfidence(horseConfidence - 0.025);
+                } catch (IllegalArgumentException e) {
+                    setConfidence(0);
+                }
+            }
+        }
+        this.hasSaddle = newHasSaddle;
     }
 
     /**

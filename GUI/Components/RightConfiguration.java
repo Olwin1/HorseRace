@@ -206,6 +206,46 @@ public class RightConfiguration extends JPanel {
             // Add to the main panel
             mainPanel.add(horseSavePanel);
 
+            //////////////////////////////
+            // Horse accessories section //
+            //////////////////////////////
+
+            // Create a new panel for the section
+            JPanel horseAccessoriesPanel = new JPanel();
+            horseAccessoriesPanel.setLayout(new BoxLayout(horseAccessoriesPanel, BoxLayout.Y_AXIS));
+
+            JLabel horseAccessoriesTitle = new JLabel();
+            horseAccessoriesTitle.setText("Horse Confidence");
+            horseAccessoriesTitle.setFont(customFont);
+
+            SaddleButton saddleButton = new SaddleButton(currentHorse);
+            saddleButton.setFont(customFont);
+
+            // Declare horse confidence now so it can be updated in listener
+            JLabel horseConfidence = new JLabel();
+
+            // Add a listener for on click
+            saddleButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    // Depending on the current state switch it to the next value along so it
+                    // cycles.
+                    saddleButton.updateState();
+System.out.println(String.format("%,.1f%%", currentHorse.getConfidence() * 100));
+                    horseConfidence.setText(String.format("%,.1f%%", currentHorse.getConfidence() * 100));
+                    horseConfidence.revalidate();
+                    horseConfidence.repaint();
+                }
+            });
+
+            // Add to the section panel
+            horseAccessoriesPanel.add(horseAccessoriesTitle);
+            horseAccessoriesPanel.add(saddleButton);
+
+            horseAccessoriesPanel.setBorder(BorderFactory.createEmptyBorder(55, 0, 0, 0));
+
+            // Add to the main panel
+            mainPanel.add(horseAccessoriesPanel);
 
             //////////////////////////////
             // Horse confidence section //
@@ -218,7 +258,6 @@ public class RightConfiguration extends JPanel {
             JLabel horseConfidenceTitle = new JLabel();
             horseConfidenceTitle.setText("Horse Confidence");
             horseConfidenceTitle.setFont(customFont);
-            JLabel horseConfidence = new JLabel();
 
             horseConfidence.setFont(customFont);
 
@@ -229,11 +268,10 @@ public class RightConfiguration extends JPanel {
             horseConfidencePanel.add(horseConfidenceTitle);
             horseConfidencePanel.add(horseConfidence);
 
-            horseConfidencePanel.setBorder(BorderFactory.createEmptyBorder(55, 0, 0, 0));
+            horseConfidencePanel.setBorder(BorderFactory.createEmptyBorder(5, 0, 0, 0));
 
             // Add to the main panel
             mainPanel.add(horseConfidencePanel);
-
 
             // Add all the sections to the listPanel
             listPanel.add(mainPanel, BorderLayout.CENTER);
