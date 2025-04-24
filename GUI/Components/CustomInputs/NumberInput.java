@@ -32,7 +32,7 @@ public class NumberInput extends JTextField {
                     Integer newTextInteger = Integer.parseInt(newText);
                     if (newTextInteger <= maxInteger && newTextInteger >= minInteger) {
                         // If valid, replace the entire content with the new character
-                        super.replace(fb, 0, fb.getDocument().getLength(), text, attrs);
+                        super.replace(fb, 0, fb.getDocument().getLength(), newText, attrs);
                     }
                     // Do nothing
                 } catch (NumberFormatException e) {
