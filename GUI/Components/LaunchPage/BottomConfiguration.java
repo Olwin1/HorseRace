@@ -1,4 +1,4 @@
-package GUI.Components;
+package GUI.Components.LaunchPage;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -12,6 +12,8 @@ import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import GUI.Components.CustomInputs.NumberInput;
+import GUI.Components.CustomInputs.PixelatedButton;
 import Utils.CustomFont;
 
 /**

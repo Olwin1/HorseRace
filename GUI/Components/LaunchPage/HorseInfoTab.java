@@ -1,4 +1,4 @@
-package GUI.Components;
+package GUI.Components.LaunchPage;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -13,6 +13,8 @@ import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
+
+import GUI.Components.CustomInputs.PixelatedButton;
 
 import java.awt.event.MouseEvent;
 

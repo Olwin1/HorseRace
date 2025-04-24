@@ -1,4 +1,4 @@
-package GUI;
+package GUI.Components.LaunchPage;
 
 import java.awt.Color;
 import java.awt.Container;
@@ -10,9 +10,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
-import GUI.Components.BottomConfiguration;
-import GUI.Components.HorseLineup;
-import GUI.Components.RightConfiguration;
+import GUI.MainMenu;
 
 /**
  * The page displayed just before a race displaying the lane setup and more.

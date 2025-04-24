@@ -1,4 +1,4 @@
-package GUI.Components;
+package GUI.Components.LaunchPage;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -15,6 +15,9 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
+import GUI.Components.CustomInputs.ColourButton;
+import GUI.Components.CustomInputs.PixelatedButton;
+import GUI.Components.CustomInputs.SingleCharInput;
 import Primary.Horse;
 import Primary.HorseColour;
 import Utils.CustomFont;

@@ -1,4 +1,4 @@
-package GUI.Components;
+package GUI.Components.CustomInputs;
 
 import java.awt.Color;
 import java.awt.event.ActionEvent;

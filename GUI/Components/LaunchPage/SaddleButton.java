@@ -1,4 +1,4 @@
-package GUI.Components;
+package GUI.Components.LaunchPage;
 
 import java.awt.Color;
 
