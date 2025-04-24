@@ -10,6 +10,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
+import GUI.Components.BottomConfiguration;
 import GUI.Components.HorseLineup;
 import GUI.Components.RightConfiguration;
 
@@ -58,8 +59,7 @@ public class LaunchPage {
             container.add(rightPanel, gbc);
 
             // Bottom Info Panel
-            JPanel bottomPanel = new JPanel();
-            bottomPanel.setBackground(Color.GRAY);
+            JPanel bottomPanel = BottomConfiguration.getInstance();
             gbc.gridx = 0;
             gbc.gridy = 2;
             gbc.gridwidth = 3;
