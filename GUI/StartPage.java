@@ -2,7 +2,8 @@ package GUI;
 
 import javax.swing.*;
 
-import GUI.Components.PixelatedButton;
+import GUI.Components.CustomInputs.PixelatedButton;
+import GUI.Components.LaunchPage.LaunchPage;
 import Utils.CustomFont;
 
 import java.awt.*;
