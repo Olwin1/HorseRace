@@ -12,7 +12,9 @@ import Utils.Sky;
  */
 public class GameGrid {
     private GameFrame screenPanel;
-    public GameGrid(int raceDistance) {
+    private Sky customSky;
+    public GameGrid(int raceDistance, Sky customSky) {
+        this.customSky = customSky;
         SwingUtilities.invokeLater(() -> {
             JFrame frame = MainMenu.getInstance().getFrame();
 
@@ -22,7 +24,7 @@ public class GameGrid {
 
             // Central Screen Panel
             // This panel will show the race itself
-            screenPanel = new GameFrame(raceDistance, Sky.RAIN);
+            screenPanel = new GameFrame(raceDistance, customSky);
             screenPanel.setBackground(Color.BLACK); // screen look
             gbc.gridx = 1;
             gbc.gridy = 1;
@@ -68,5 +70,9 @@ public class GameGrid {
 
     public GameFrame getGameFrame() {
         return this.screenPanel;
+    }
+
+    public Sky getTrackWeather() {
+        return this.customSky;
     }
 }

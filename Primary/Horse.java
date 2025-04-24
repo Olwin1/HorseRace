@@ -1,6 +1,7 @@
 package Primary;
 
 import java.awt.Color;
+import java.util.List;
 
 /**
  * The [Horse] class is used to provide all the various different methods
@@ -41,6 +42,9 @@ public class Horse {
     private HorseColour horseColour;
 
     private boolean hasSaddle = false;
+
+    /// Keeps track of the previous victories (First index is oldest - last index is most recent win)
+    private List<Integer> recentTrends;
 
     /////////////////////////////////////
     // Horse class method definitions. //
@@ -279,6 +283,42 @@ public class Horse {
         }
         // Return the approximation of colour back to the caller
         return parsedColour;
+    }
+
+    /**
+     * Method to get all history of race positions for the horse.
+     * Most recent positions will be at the start of the list.
+     * Oldest will be towards the end.
+     * 
+     * @return [List<Integer>] of the positions achieved each race from most recent
+     *         to least recent.
+     */
+    public List<Integer> getRecentTrends() {
+        // Return the recent trends back to the caller but reversed to the 1st index is
+        // the most recent.
+        return this.recentTrends.reversed();
+    }
+
+    /**
+     * Method to get the position of the horse in their most recent race.
+     * 
+     * @return an [Integer] denoting the horse's position
+     */
+    public Integer getMostRecentPosition() {
+        return getRecentTrends().getFirst();
+    }
+
+    /**
+     * Method to add a new position attained by the horse to the history.
+     * This should only be called when a race is over to announce the winner to the
+     * rest of the program.
+     * 
+     * @param position an [Integer] denoting the position the horse came in the
+     *                 race.
+     */
+    public void addNewTrend(Integer position) {
+        // Add the latest position to the trends
+        recentTrends.add(position);
     }
 
 }
