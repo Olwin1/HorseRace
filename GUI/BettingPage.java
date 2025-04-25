@@ -45,6 +45,7 @@ public class BettingPage {
             mainPanel.setBackground(Color.BLACK); // screen look
             gbc.gridx = 0;
             gbc.gridy = 0;
+            gbc.gridheight = 2;
             gbc.weightx = 1.0;
             gbc.weighty = 1.0;
             gbc.fill = GridBagConstraints.BOTH;
@@ -56,7 +57,8 @@ public class BettingPage {
             rightPanel.setLayout(new GridLayout(0, 1));
             gbc.gridx = 1;
             gbc.gridy = 0;
-            gbc.weightx = 0.5;
+            gbc.gridheight = 1;
+            gbc.weightx = 0.25;
             gbc.weighty = 1.0;
             gbc.fill = GridBagConstraints.BOTH;
             container.add(rightPanel, gbc);
@@ -89,10 +91,10 @@ public class BettingPage {
 
             // Add button on the right of bottom UI
             bottomPanel.add(startRace, BorderLayout.LINE_END);
-            gbc.gridx = 0;
+            gbc.gridx = 1;
             gbc.gridy = 1;
-            gbc.gridwidth = 3;
-            gbc.weightx = 1.0;
+            gbc.gridheight = 1;
+            gbc.weightx = 0.25;
             gbc.weighty = 0.05;
             gbc.fill = GridBagConstraints.BOTH;
             container.add(bottomPanel, gbc);
