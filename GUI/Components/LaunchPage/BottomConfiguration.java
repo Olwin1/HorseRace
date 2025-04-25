@@ -12,6 +12,7 @@ import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import GUI.BettingPage;
 import GUI.Components.CustomInputs.NumberInput;
 import GUI.Components.CustomInputs.PixelatedButton;
 import Utils.CustomFont;
@@ -104,7 +105,7 @@ public class BottomConfiguration extends JPanel {
             // When pressed display the race betting page
             @Override
             public void actionPerformed(ActionEvent e) {
-                // LaunchPage.displayLaunchPage();
+                BettingPage.displayBettingPage();
             }
 
         });
