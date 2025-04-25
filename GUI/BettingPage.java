@@ -15,6 +15,7 @@ import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
 import GUI.Components.BettingPage.BettingPanel;
+import GUI.Components.BettingPage.PreviousWinners;
 import GUI.Components.CustomInputs.PixelatedButton;
 
 /**
@@ -52,7 +53,7 @@ public class BettingPage {
             container.add(mainPanel, gbc);
 
             // Right Previous winners Panel
-            JPanel rightPanel = new JPanel();
+            PreviousWinners rightPanel = new PreviousWinners();
             rightPanel.setBackground(Color.LIGHT_GRAY);
             rightPanel.setLayout(new GridLayout(0, 1));
             gbc.gridx = 1;
