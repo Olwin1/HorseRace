@@ -1,6 +1,7 @@
 package Primary;
 
 import java.awt.Color;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -44,7 +45,7 @@ public class Horse {
     private boolean hasSaddle = false;
 
     /// Keeps track of the previous victories (First index is oldest - last index is most recent win)
-    private List<Integer> recentTrends;
+    private List<Integer> recentTrends = new ArrayList<>();
 
     /////////////////////////////////////
     // Horse class method definitions. //
@@ -305,6 +306,9 @@ public class Horse {
      * @return an [Integer] denoting the horse's position
      */
     public Integer getMostRecentPosition() {
+        if(getRecentTrends().size() == 0) {
+            return null;
+        }
         return getRecentTrends().getFirst();
     }
 
