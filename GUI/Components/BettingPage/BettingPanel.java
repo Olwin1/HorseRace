@@ -8,7 +8,9 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
 import Primary.Horse;
+import Primary.User;
 import Utils.HorseInstances;
+import Utils.UserInstances;
 
 /**
  * Panel to display the lanes that will be used in the race along with the
@@ -31,6 +33,21 @@ public class BettingPanel extends JPanel {
      * functions identically.
      */
     private BettingPanel() {
+        /////////////////////////
+        /// Add betting users ///
+        /////////////////////////
+
+        UserInstances userInst = UserInstances.getInstance();
+        if (userInst.getUsers().size() == 0) {
+            userInst.addUser(new User());
+            userInst.addUser(new User());
+            userInst.addUser(new User());
+        }
+
+        ///////////////////
+        // Create layout //
+        ///////////////////
+
         // Main container panel with horizontal layout
         listPanel = new JPanel();
         listPanel.setLayout(new BoxLayout(listPanel, BoxLayout.X_AXIS));

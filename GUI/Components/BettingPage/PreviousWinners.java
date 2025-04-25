@@ -10,8 +10,10 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
 import Primary.Horse;
+import Primary.User;
 import Utils.CustomFont;
 import Utils.HorseInstances;
+import Utils.UserInstances;
 
 public class PreviousWinners extends JPanel {
     private static final Font customFont = CustomFont.getFont(14);
@@ -19,6 +21,9 @@ public class PreviousWinners extends JPanel {
     private JPanel positions;
 
     public PreviousWinners() {
+        ///////////////////
+        // Create Layout //
+        ///////////////////
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
         // Create the list that will be the scroll pane

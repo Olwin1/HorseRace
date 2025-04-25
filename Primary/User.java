@@ -11,7 +11,7 @@ import Utils.Pair;
  * However, this is designed to the betting system can be scaled to more than
  * one user.
  */
-class User {
+public class User {
     private List<Pair<Horse, Pair<Integer, Integer>>> betHistory = new ArrayList<>();
     private List<Double> winningsAndLosses = new ArrayList<>();
 
