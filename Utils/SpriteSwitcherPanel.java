@@ -54,9 +54,9 @@ public class SpriteSwitcherPanel extends JPanel {
         saddleGifFallPath = saddlePrefix + "_fall.gif";
 
         // Load sprite animations
-        idleIcon = new AnimatedSprite(prefix + "_idle.gif", hasSaddle, saddlePrefix + "_idle.gif");
-        runIcon = new AnimatedSprite(prefix + "_run.gif", hasSaddle, saddlePrefix + "_run.gif");
-        fallIcon = new AnimatedSprite(fallPath, hasSaddle, saddleGifFallPath);
+        idleIcon = new AnimatedSprite(prefix + "_idle.gif", hasSaddle, saddlePrefix + "_idle.gif", null);
+        runIcon = new AnimatedSprite(prefix + "_run.gif", hasSaddle, saddlePrefix + "_run.gif", null);
+        fallIcon = new AnimatedSprite(fallPath, hasSaddle, saddleGifFallPath, null);
 
         // Initialize sprite display label
         spriteLabel = idleIcon;// new JLabel(idleIcon);

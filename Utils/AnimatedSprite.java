@@ -20,10 +20,10 @@ public class AnimatedSprite extends JLabel {
     private Timer timer;
     private int frameDelay = 83;
 
-    public AnimatedSprite(String filePath, boolean hasSaddle, String saddleGifPath) {
+    public AnimatedSprite(String filePath, boolean hasSaddle, String saddleGifPath, Integer scale) {
         try {
             // Convert the animation to a series of images
-            this.frames = convertGIF(filePath, 0.35, hasSaddle, saddleGifPath);
+            this.frames = convertGIF(filePath, scale == null ? 0.35 : scale, hasSaddle, saddleGifPath);
         } catch (Exception e) {
             // If errors then print stacktrace and assume there are simply no frames
             e.printStackTrace();
@@ -128,23 +128,26 @@ public class AnimatedSprite extends JLabel {
      * @return an image sequence
      * @throws Exception
      */
-    public static ArrayList<BufferedImage> convertGIF(String gifPath, double scale, boolean hasSaddle, String saddleGifPath) throws Exception {
+    public static ArrayList<BufferedImage> convertGIF(String gifPath, double scale, boolean hasSaddle,
+            String saddleGifPath) throws Exception {
         ArrayList<BufferedImage> frames = new ArrayList<>();
-    
+
         // Read base GIF (horse)
         ImageInputStream stream = ImageIO.createImageInputStream(new File(gifPath));
         Iterator<ImageReader> readers = ImageIO.getImageReaders(stream);
-        if (!readers.hasNext()) throw new RuntimeException("No reader for: " + gifPath);
+        if (!readers.hasNext())
+            throw new RuntimeException("No reader for: " + gifPath);
         ImageReader reader = readers.next();
         reader.setInput(stream);
         int numFrames = reader.getNumImages(true);
-    
+
         // Read saddle GIF frames (if hasSaddle is true)
         ArrayList<BufferedImage> saddleFrames = new ArrayList<>();
         if (hasSaddle) {
             ImageInputStream saddleStream = ImageIO.createImageInputStream(new File(saddleGifPath));
             Iterator<ImageReader> saddleReaders = ImageIO.getImageReaders(saddleStream);
-            if (!saddleReaders.hasNext()) throw new RuntimeException("No reader for saddle GIF: " + saddleGifPath);
+            if (!saddleReaders.hasNext())
+                throw new RuntimeException("No reader for saddle GIF: " + saddleGifPath);
             ImageReader saddleReader = saddleReaders.next();
             saddleReader.setInput(saddleStream);
             for (int i = 0; i < numFrames; i++) {
@@ -153,12 +156,12 @@ public class AnimatedSprite extends JLabel {
             saddleReader.dispose();
             saddleStream.close();
         }
-    
+
         for (int i = 0; i < numFrames; i++) {
             BufferedImage frame = reader.read(i);
             BufferedImage transparentFrame = new BufferedImage(
                     frame.getWidth(), frame.getHeight(), BufferedImage.TYPE_INT_ARGB);
-    
+
             for (int y = 0; y < frame.getHeight(); y++) {
                 for (int x = 0; x < frame.getWidth(); x++) {
                     int rgba = frame.getRGB(x, y);
@@ -170,21 +173,21 @@ public class AnimatedSprite extends JLabel {
                     }
                 }
             }
-    
+
             if (hasSaddle) {
                 BufferedImage saddle = saddleFrames.get(i);
                 Graphics2D g = transparentFrame.createGraphics();
                 g.drawImage(saddle, 0, 0, null);
                 g.dispose();
             }
-    
+
             BufferedImage scaledFrame = scaleImage(transparentFrame, scale);
             frames.add(scaledFrame);
         }
-    
+
         reader.dispose();
         stream.close();
         return frames;
     }
-    
+
 }

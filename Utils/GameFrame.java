@@ -21,6 +21,7 @@ public class GameFrame extends JPanel {
 
     private JPanel skyPanel;
     private HorseRacer horseRacer;
+    private AnimatedSprite rainSprite;
     private Timer timer;
     final int width = 800;
     final int height = 600;
@@ -36,6 +37,8 @@ public class GameFrame extends JPanel {
                     "./Sprites/Backdrop/Track/bottom-track.png", 300, 300, 2);
             skyPanel = new ImagePanelLoader(
                     String.format("./Sprites/Backdrop/Sky/sky-%s.png", sky.toString().toLowerCase()), 2);
+            // If it is raining then add a rain sprite
+            rainSprite = sky == Sky.RAIN ? new AnimatedSprite("./Sprites/Backdrop/Sky/rain.gif", false, null, 1) : null;
 
         } catch (FileNotFoundException e) {
             // If errors then print stacktrace
@@ -80,6 +83,10 @@ public class GameFrame extends JPanel {
         });
 
         // Add the backdrop to the GameFrame (which is a JPanel)
+        // If its raining then add that too
+        if (rainSprite != null) {
+            add(rainSprite);
+        }
         add(backdrop);
 
         add(skyPanel);
