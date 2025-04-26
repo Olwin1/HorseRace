@@ -145,6 +145,8 @@ public class BettingPage {
             gbc.fill = GridBagConstraints.BOTH;
             container.add(bottomPanel, gbc);
 
+            frame.revalidate();
+            frame.repaint();
             frame.setVisible(true);
         });
     }

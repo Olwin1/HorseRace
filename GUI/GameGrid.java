@@ -27,6 +27,8 @@ public class GameGrid {
             JFrame frame = MainMenu.getInstance().getFrame();
 
             Container container = frame.getContentPane();
+            container.removeAll();
+            
             container.setLayout(new GridBagLayout());
             GridBagConstraints gbc = new GridBagConstraints();
 
