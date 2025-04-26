@@ -1,0 +1,15 @@
+plugins {
+    id 'application'
+    id 'java'
+}
+
+application {
+    mainClass = 'Part1.Main'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+}
