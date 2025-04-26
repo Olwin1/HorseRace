@@ -1,0 +1,24 @@
+plugins {
+    id 'application'
+    id 'java'
+}
+
+application {
+    mainClass = 'Main' // Entry point
+}
+
+repositories {
+    mavenCentral()
+}
+
+sourceSets {
+    main {
+        java {
+            srcDirs = ['src']  // Look directly in the root folder for Java files
+        }
+    }
+}
+
+dependencies {
+    // Dependencies here
+}
