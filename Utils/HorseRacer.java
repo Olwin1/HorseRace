@@ -27,7 +27,8 @@ public class HorseRacer {
         double horsePositionInMetres = horse.getDistanceTravelled() * 8 * 3;
     
         // Convert that to a pixel position relative to the full track
-        double horsePositionInPixels = (horsePositionInMetres / (double) totalTrackDistance) * width;
+        double horsePositionInPixels = (horsePositionInMetres / 6500.0) * width;
+
     
         // Apply the backdrop shift — move everything left as the background scrolls
         double finalPosition = horsePositionInPixels - backdropShift;

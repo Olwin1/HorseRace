@@ -10,7 +10,6 @@ import Utils.HorseInstances;
 public class Main {
     public static void main(String[] args) {
         // Define the initial race distance
-        final int raceDistance = 10000;
 
         // Add horses to the race
         HorseInstances.getInstance().addHorse(new Horse('A', "Adi", 0.5, HorseColour.BLUE), 1);

@@ -73,12 +73,12 @@ public class BottomConfiguration extends JPanel {
 
         // Create a label to display the text for distance of races & add to panel
         JLabel raceDistanceLabel = new JLabel();
-        raceDistanceLabel.setText("Race Distance (100-1000)");
+        raceDistanceLabel.setText("Race Distance (1000 - 4000)");
         raceDistanceLabel.setFont(customFont);
         raceDistancePanel.add(raceDistanceLabel);
 
         // Create a custom input that will only accept a range of integers
-        NumberInput raceDistanceInput = new NumberInput(100, 1000, 100);
+        NumberInput raceDistanceInput = new NumberInput(1000, 4000, 1000);
         raceDistanceInput.setFont(customFont);
         raceDistancePanel.add(raceDistanceInput);
 
