@@ -1,10 +1,7 @@
-import java.util.concurrent.TimeUnit;
 
-import GUI.GameGrid;
 import GUI.StartPage;
 import Primary.Horse;
 import Primary.HorseColour;
-import Primary.Race;
 import Utils.HorseInstances;
 
 public class Main {
@@ -17,6 +14,6 @@ public class Main {
         HorseInstances.getInstance().addHorse(new Horse('B', "Bob", 0.25, HorseColour.PURPLE), 2);
 
         // Display the start page
-         StartPage startPage = new StartPage();
+        StartPage startPage = new StartPage();
     }
 }

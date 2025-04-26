@@ -1,6 +1,5 @@
 package GUI.Components.BettingPage;
 
-import java.awt.Dimension;
 import java.awt.Font;
 import java.util.ArrayList;
 
@@ -10,10 +9,8 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
 import Primary.Horse;
-import Primary.User;
 import Utils.CustomFont;
 import Utils.HorseInstances;
-import Utils.UserInstances;
 
 public class PreviousWinners extends JPanel {
     private static final Font customFont = CustomFont.getFont(14);
@@ -66,7 +63,7 @@ public class PreviousWinners extends JPanel {
         // the horses into
         ArrayList<Horse> currentHorses = HorseInstances.getInstance().getHorses();
         ArrayList<Horse> orderedWinners = new ArrayList<>(currentHorses.size());
-        for(int i = 0; i < currentHorses.size(); i++) {
+        for (int i = 0; i < currentHorses.size(); i++) {
             orderedWinners.add(null);
         }
 
@@ -83,7 +80,7 @@ public class PreviousWinners extends JPanel {
         // Now loop through the participants in order
         boolean isEmpty = true;
         for (Horse horse : orderedWinners) {
-            if(horse == null) {
+            if (horse == null) {
                 continue;
             }
             isEmpty = false;
