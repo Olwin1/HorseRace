@@ -1,8 +1,4 @@
-<<<<<<<< HEAD:Part1/BooleanWrapper.java
-package Part1;
-========
 package Utils;
->>>>>>>> GUI-Development:Part2/Utils/BooleanWrapper.java
 /** A basic wrapper class for boolean values to maintain state across context gaps. 
  * 
  */
