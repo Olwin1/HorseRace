@@ -9,14 +9,21 @@ import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Random;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
+import GUI.Components.BettingPage.BettingInfoTab;
 import GUI.Components.BettingPage.BettingPanel;
 import GUI.Components.BettingPage.PreviousWinners;
 import GUI.Components.CustomInputs.PixelatedButton;
+import Primary.BettingSystem;
+import Primary.User;
+import Utils.Sky;
+import Utils.UserInstances;
 
 /**
  * The page showing all info regarding betting.
@@ -85,7 +92,34 @@ public class BettingPage {
                 // When pressed display the race betting page
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    System.out.println("Start pressed");
+                    // get the users that can bet
+                    ArrayList<User> users = UserInstances.getInstance().getUsers();
+
+                    // Select the weather randomly
+                    Random random = new Random();
+                    Sky[] enumValues = Sky.class.getEnumConstants();
+                    Sky raceWeather = enumValues[random.nextInt(enumValues.length)];
+
+                    // Get betting system instance
+                    BettingSystem bettingSystemInstance = BettingSystem.getInstance();
+
+                    // Loop through each horse
+                    for (BettingInfoTab bettingInfoTab : BettingInfoTab.getInstances()) {
+                        // Then loop through each user option
+                        ArrayList<Integer> bets = bettingInfoTab.getBet();
+                        for (int i = 0; i < bets.size(); i++) {
+                            // If they didn't place a bet then ignore
+                            if (bets.get(i) == 0) {
+                                continue;
+                            }
+                            // If they did then place it
+                            bettingSystemInstance.placeBet(users.get(i - 1), bettingInfoTab.getHorse(), bets.get(i),
+                                    raceWeather);
+
+                        }
+                    }
+
+                    // Start a race with the given conditions
                 }
 
             });

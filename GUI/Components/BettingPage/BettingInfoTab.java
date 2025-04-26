@@ -6,6 +6,7 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -24,10 +25,18 @@ public class BettingInfoTab extends JPanel {
     private JLabel nameLabel;
     private JLabel symbolLabel;
     private JLabel confidenceLabel;
+    private Horse horse;
+
+    private PlaceBet userOneBet;
+    private PlaceBet userTwoBet;
+    private PlaceBet userThreeBet;
+
     private static final Color backgroundColour = new Color(230, 230, 250);
 
     private static Font defaultFont = CustomFont.getFont(18f);
     private static Font bodyFont = CustomFont.getFont(14f);
+
+    private static ArrayList<BettingInfoTab> _instances = new ArrayList<>();
 
     /**
      * Will create a tab to be used in a scroll view.
@@ -39,6 +48,11 @@ public class BettingInfoTab extends JPanel {
      *                    update the entire list.
      */
     public BettingInfoTab(int i, Horse horse, Runnable updateLanes) {
+        // Register a new instance
+        _instances.add(this);
+
+        this.horse = horse;
+
         // Check if a horse has been provided
         boolean hasHorse = horse != null;
 
@@ -114,9 +128,9 @@ public class BettingInfoTab extends JPanel {
         bettingPanel.setLayout(new BoxLayout(bettingPanel, BoxLayout.Y_AXIS));
 
         // Create a betting input for 3 users
-        PlaceBet userOneBet = new PlaceBet(bodyFont, bettingPanel, 1);
-        PlaceBet userTwoBet = new PlaceBet(bodyFont, bettingPanel, 2);
-        PlaceBet userThreeBet = new PlaceBet(bodyFont, bettingPanel, 3);
+        userOneBet = new PlaceBet(bodyFont, bettingPanel, 1);
+        userTwoBet = new PlaceBet(bodyFont, bettingPanel, 2);
+        userThreeBet = new PlaceBet(bodyFont, bettingPanel, 3);
 
         // Add bettingPanel to the bottom row
         bottomRow.add(bettingPanel, BorderLayout.LINE_START);
@@ -126,6 +140,27 @@ public class BettingInfoTab extends JPanel {
         // Add the bottom row to the tab
         add(bottomRow);
 
+    }
+
+    /**
+     * Gets an array of bets placed by each user on a horse
+     * 
+     * @return
+     */
+    public ArrayList<Integer> getBet() {
+        ArrayList<Integer> bets = new ArrayList<>();
+        bets.add(userOneBet.getBet());
+        bets.add(userTwoBet.getBet());
+        bets.add(userThreeBet.getBet());
+        return bets;
+    }
+
+    public static ArrayList<BettingInfoTab> getInstances() {
+        return _instances;
+    }
+
+    public Horse getHorse() {
+        return horse;
     }
 
 }

@@ -28,30 +28,34 @@ public class BettingSystem {
      */
     private double trackConditionFactor = 1.0;
 
-    /**
-     * Used to keep track of which race is being bet on.
-     */
-    private GameGrid currentRaceGrid;
+    private static BettingSystem _instance;
 
     /**
      * Default constructor for BettingSystem.
      */
-    public BettingSystem(GameGrid currentRaceGrid) {
-        this.currentRaceGrid = currentRaceGrid;
+    private BettingSystem() {
+    }
+
+    public static BettingSystem getInstance() {
+        if (_instance != null) {
+            return _instance;
+        } else {
+            return new BettingSystem();
+        }
     }
 
     /**
      * Calculates odds for a horse based on its confidence, recent trends,
      * and current track condition.
      *
-     * @param horse           the horse for which to calculate odds
-     * @param currentRaceGrid the current game grid containing track weather
+     * @param horse the horse for which to calculate odds
+     * @param sky   the current track weather
      * @return the calculated odds for the horse
      */
-    public double calculateOdds(Horse horse) {
+    public double calculateOdds(Horse horse, Sky sky) {
         double confidence = horse.getConfidence(); // Confidence between 0.0 and 1.0
         List<Integer> recentTrends = horse.getRecentTrends();
-        Sky trackCondition = currentRaceGrid.getTrackWeather();
+        Sky trackCondition = sky;
 
         double trendScore = 1.0; // Average position across recent races
         if (recentTrends != null) {
@@ -79,14 +83,14 @@ public class BettingSystem {
     /**
      * Places a bet for a user on a given horse and updates betting trends.
      *
-     * @param user            the user placing the bet
-     * @param horse           the horse the user is betting on
-     * @param amount          the amount being bet
-     * @param currentRaceGrid the current race grid context
+     * @param user   the user placing the bet
+     * @param horse  the horse the user is betting on
+     * @param amount the amount being bet
+     * @param sky    the track weather
      */
-    public void placeBet(User user, Horse horse, int amount) {
+    public void placeBet(User user, Horse horse, int amount, Sky sky) {
         // Add the bet to the user's betting history with calculated odds
-        user.addBet(horse, amount, calculateOdds(horse));
+        user.addBet(horse, amount, calculateOdds(horse, sky));
 
         // Update bet count for the horse
         userBetCounts.put(horse, userBetCounts.getOrDefault(horse, 0) + 1);
