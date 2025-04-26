@@ -1,3 +1,4 @@
+package Part1;
 
 /**
  * The [Horse] class is used to provide all the various different methods

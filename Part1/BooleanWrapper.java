@@ -1,3 +1,4 @@
+package Part1;
 /** A basic wrapper class for boolean values to maintain state across context gaps. 
  * 
  */
