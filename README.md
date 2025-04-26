@@ -20,9 +20,9 @@ Contains Two versions:
 
 ```bash
 
-git  clone  https://github.com/yourusername/yourproject.git
+git  clone  https://github.com/Olwin1/HorseRaceSimulator.git
 
-cd  yourproject
+cd  HorseRaceSimulator
 
 ```
 
