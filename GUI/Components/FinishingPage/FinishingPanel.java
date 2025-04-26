@@ -8,9 +8,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
 import Primary.Horse;
-import Primary.User;
 import Utils.Singletons.HorseInstances;
-import Utils.Singletons.UserInstances;
 
 /**
  * Panel to display the lanes that will be used in the race along with the
@@ -37,7 +35,6 @@ public class FinishingPanel extends JPanel {
         /// Get betting users ///
         /////////////////////////
 
-        UserInstances userInst = UserInstances.getInstance();
 
         ///////////////////
         // Create layout //
