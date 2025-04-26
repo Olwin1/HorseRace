@@ -149,7 +149,7 @@ public class BettingSystem {
      *                       = first place)
      * @param users          a list of users who placed bets in the current race
      */
-    public void payOutWinnings(Map<Horse, Integer> horsePositions, List<User> users) {
+    public void payOutWinnings(List<Horse> horsePositions, List<User> users) {
         for (User user : users) {
             // Retrieve all bets placed by this user
             for (Pair<Horse, Pair<Integer, Integer>> bet : user.getBettingHistory()) {
@@ -157,7 +157,7 @@ public class BettingSystem {
                 double amount = bet.getSecond().getFirst(); // Bet amount
                 double winnings = bet.getSecond().getSecond(); // Calculated winnings at time of bet
 
-                Integer position = horsePositions.get(horse); // Final race position of this horse
+                Integer position = horsePositions.indexOf(horse) + 1; // Final race position of this horse
 
                 if (position != null && position == 1) {
                     // Credit winnings to user

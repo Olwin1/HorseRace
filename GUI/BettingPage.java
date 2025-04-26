@@ -114,7 +114,7 @@ public class BettingPage {
                                 continue;
                             }
                             // If they did then place it
-                            bettingSystemInstance.placeBet(users.get(i - 1), bettingInfoTab.getHorse(), bets.get(i),
+                            bettingSystemInstance.placeBet(users.get(i), bettingInfoTab.getHorse(), bets.get(i),
                                     raceWeather);
 
                         }

@@ -6,6 +6,7 @@ import GUI.BettingPage;
 import GUI.FinishingPage;
 import GUI.GameGrid;
 import GUI.MainMenu;
+import Primary.BettingSystem;
 import Primary.Horse;
 
 import java.awt.*;
@@ -162,6 +163,9 @@ public class GameFrame extends JPanel {
         } else {
             FinishingPage.displayFinshingPage();
         }
+
+        // Pay out winnings
+        BettingSystem.getInstance().payOutWinnings(horses, UserInstances.getInstance().getUsers());
 
         // Now `horses` is sorted correctly: non-fallen sorted by distance, fallen ones
         // at the back
