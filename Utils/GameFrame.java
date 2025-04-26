@@ -3,6 +3,7 @@ package Utils;
 import javax.swing.*;
 
 import GUI.BettingPage;
+import GUI.FinishingPage;
 import GUI.GameGrid;
 import GUI.MainMenu;
 import Primary.Horse;
@@ -158,6 +159,8 @@ public class GameFrame extends JPanel {
         // If there are still races left then show the betting page again
         if (gridInstance.getRaceCount() != 0) {
             BettingPage.displayBettingPage();
+        } else {
+            FinishingPage.displayFinshingPage();
         }
 
         // Now `horses` is sorted correctly: non-fallen sorted by distance, fallen ones

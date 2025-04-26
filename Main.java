@@ -1,8 +1,12 @@
 
+import GUI.FinishingPage;
 import GUI.StartPage;
+import GUI.Components.FinishingPage.FinishingInfoTab;
 import Primary.Horse;
 import Primary.HorseColour;
+import Primary.User;
 import Utils.HorseInstances;
+import Utils.UserInstances;
 
 public class Main {
     public static void main(String[] args) {
@@ -14,6 +18,11 @@ public class Main {
         HorseInstances.getInstance().addHorse(new Horse('B', "Bob", 0.25, HorseColour.PURPLE), 2);
 
         // Display the start page
-        StartPage startPage = new StartPage();
+        //StartPage startPage = new StartPage();
+
+        UserInstances.getInstance().addUser(new User());
+        UserInstances.getInstance().addUser(new User());
+        UserInstances.getInstance().addUser(new User());
+        FinishingPage.displayFinshingPage();
     }
 }
