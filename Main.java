@@ -17,22 +17,7 @@ public class Main {
         HorseInstances.getInstance().addHorse(new Horse('C', "Cob", 0.8, HorseColour.GREEN), 3);
         HorseInstances.getInstance().addHorse(new Horse('B', "Bob", 0.25, HorseColour.PURPLE), 2);
 
-        // Create a grid instance
-        // GameGrid grid = new GameGrid(raceDistance);
-        // // testHorse();
-        //  Race race = new Race(raceDistance);
-
+        // Display the start page
          StartPage startPage = new StartPage();
-
-        try {
-            // Wait 3 seconds
-            TimeUnit.SECONDS.sleep(3);
-        } catch (InterruptedException e) {
-            // If sleep fails then print stacktrace
-            e.printStackTrace();
-        }
-
-        // Start the race in the grid
-        // race.startRace(grid.getGameFrame());
     }
 }

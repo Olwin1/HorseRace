@@ -21,6 +21,7 @@ import GUI.Components.BettingPage.BettingPanel;
 import GUI.Components.BettingPage.PreviousWinners;
 import GUI.Components.CustomInputs.PixelatedButton;
 import Primary.BettingSystem;
+import Primary.Race;
 import Primary.User;
 import Utils.Sky;
 import Utils.UserInstances;
@@ -120,6 +121,16 @@ public class BettingPage {
                     }
 
                     // Start a race with the given conditions
+                    GameGrid gridInstance = GameGrid.getInstance(null);
+                    Race race = new Race(gridInstance.getDistance());
+                    // Show the game grid and run the race
+                    gridInstance.showGameGrid(raceWeather, () -> {
+                        // Run in a seperate thread to not block up main one
+                        new Thread(() -> {
+                            race.startRaceWithCountdown(gridInstance.getGameFrame());
+                        }).start();
+                    });
+
                 }
 
             });

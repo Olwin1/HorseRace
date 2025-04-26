@@ -122,6 +122,24 @@ public class Race {
     }
 
     /**
+     * Call the startRace method but only after a 3 second countdown
+     * 
+     * @param gameFrame
+     */
+    public void startRaceWithCountdown(GameFrame gameFrame) {
+        try {
+            // Wait 3 seconds
+            TimeUnit.SECONDS.sleep(3);
+        } catch (InterruptedException e) {
+            // If sleep fails then print stacktrace
+            e.printStackTrace();
+        }
+
+        // Start the race in the grid
+        startRace(gameFrame);
+    }
+
+    /**
      * Randomly make a horse move forward or fall depending
      * on its confidence rating
      * A fallen horse cannot move

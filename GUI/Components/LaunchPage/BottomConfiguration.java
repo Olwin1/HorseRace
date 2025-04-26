@@ -13,9 +13,11 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import GUI.BettingPage;
+import GUI.GameGrid;
 import GUI.Components.CustomInputs.NumberInput;
 import GUI.Components.CustomInputs.PixelatedButton;
 import Utils.CustomFont;
+import Utils.Pair;
 
 /**
  * Singleton that can be accessed by `getInstance()`.
@@ -105,6 +107,12 @@ public class BottomConfiguration extends JPanel {
             // When pressed display the race betting page
             @Override
             public void actionPerformed(ActionEvent e) {
+                // Create a new GameGrid instance with the specified race distance and number of
+                // races
+                int raceDistance = raceDistanceInput.getIntegerValue();
+                int numberOfRaces = raceCountInput.getIntegerValue();
+                GameGrid.getInstance(new Pair<Integer, Integer>(raceDistance, numberOfRaces));
+                // Show the betting page
                 BettingPage.displayBettingPage();
             }
 

@@ -3,18 +3,26 @@ package GUI;
 import javax.swing.*;
 
 import Utils.GameFrame;
+import Utils.Pair;
 
 import java.awt.*;
 import Utils.Sky;
 
 /**
- * Simple grid class to create a grid display for during the race.  
+ * Simple grid class to create a grid display for during the race.
  */
 public class GameGrid {
+    private static GameGrid _instance;
     private GameFrame screenPanel;
-    private Sky customSky;
-    public GameGrid(int raceDistance, Sky customSky) {
-        this.customSky = customSky;
+    private int raceDistance;
+    private int raceCount;
+
+    public GameGrid(int raceDistance, int raceCount) {
+        this.raceDistance = raceDistance;
+        this.raceCount = raceCount;
+    }
+
+    public void showGameGrid(Sky customSky, Runnable onUIReady) {
         SwingUtilities.invokeLater(() -> {
             JFrame frame = MainMenu.getInstance().getFrame();
 
@@ -64,7 +72,14 @@ public class GameGrid {
             gbc.fill = GridBagConstraints.BOTH;
             container.add(bottomPanel, gbc);
 
+            frame.validate();
+            // refresh to actually show changes
+            frame.repaint();
             frame.setVisible(true);
+
+            if (onUIReady != null) {
+                onUIReady.run(); // NOW start the race
+            }
         });
     }
 
@@ -72,7 +87,45 @@ public class GameGrid {
         return this.screenPanel;
     }
 
-    public Sky getTrackWeather() {
-        return this.customSky;
+    /**
+     * Get the number of races to run
+     * 
+     * @return
+     */
+    public int getRaceCount() {
+        return this.raceCount;
+    }
+
+    /**
+     * Decrease the number of races left by one
+     */
+    public void decreaseRaceCount() {
+        this.raceCount--;
+    }
+
+    /**
+     * Get gamegrid instance
+     * if options are provided then create a new instance
+     * 
+     * @param raceOptions takes a Pair of Integers (raceDistance, raceCount)
+     * @return [GameGrid] instance
+     */
+    public static GameGrid getInstance(Pair<Integer, Integer> raceOptions) {
+        if (raceOptions != null) {
+            _instance = new GameGrid(raceOptions.getFirst(), raceOptions.getSecond());
+        } else if (_instance == null) {
+            _instance = new GameGrid(100, 1);
+        }
+
+        return _instance;
+    }
+
+    /**
+     * Get the distance of the race
+     * 
+     * @return
+     */
+    public int getDistance() {
+        return this.raceDistance;
     }
 }
