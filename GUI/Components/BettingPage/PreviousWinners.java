@@ -10,7 +10,7 @@ import javax.swing.JScrollPane;
 
 import Primary.Horse;
 import Utils.CustomFont;
-import Utils.HorseInstances;
+import Utils.Singletons.HorseInstances;
 
 public class PreviousWinners extends JPanel {
     private static final Font customFont = CustomFont.getFont(14);

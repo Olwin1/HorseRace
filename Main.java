@@ -5,8 +5,8 @@ import GUI.Components.FinishingPage.FinishingInfoTab;
 import Primary.Horse;
 import Primary.HorseColour;
 import Primary.User;
-import Utils.HorseInstances;
-import Utils.UserInstances;
+import Utils.Singletons.HorseInstances;
+import Utils.Singletons.UserInstances;
 
 public class Main {
     public static void main(String[] args) {

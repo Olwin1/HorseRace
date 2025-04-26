@@ -6,7 +6,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import Primary.User;
-import Utils.UserInstances;
+import Utils.Singletons.UserInstances;
 
 /**
  * This class is responsible for displaying the winnings for a specific user 

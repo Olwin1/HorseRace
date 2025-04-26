@@ -8,6 +8,14 @@ import GUI.GameGrid;
 import GUI.MainMenu;
 import Primary.BettingSystem;
 import Primary.Horse;
+import Utils.Enums.Sky;
+import Utils.Enums.State;
+import Utils.Singletons.HorseInstances;
+import Utils.Singletons.HorseMoverInstances;
+import Utils.Singletons.UserInstances;
+import Utils.Sprite.AnimatedSprite;
+import Utils.Sprite.Backdrop;
+import Utils.Sprite.ImagePanelLoader;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;

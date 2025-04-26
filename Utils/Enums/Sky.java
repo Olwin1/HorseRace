@@ -1,4 +1,4 @@
-package Utils;
+package Utils.Enums;
 
 /**
  * Used to determine what sky to use for the race.

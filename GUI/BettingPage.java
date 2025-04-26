@@ -23,8 +23,8 @@ import GUI.Components.CustomInputs.PixelatedButton;
 import Primary.BettingSystem;
 import Primary.Race;
 import Primary.User;
-import Utils.Sky;
-import Utils.UserInstances;
+import Utils.Enums.Sky;
+import Utils.Singletons.UserInstances;
 
 /**
  * The page showing all info regarding betting.

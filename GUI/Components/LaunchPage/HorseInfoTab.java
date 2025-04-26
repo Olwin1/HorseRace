@@ -20,8 +20,8 @@ import java.awt.event.MouseEvent;
 
 import Primary.Horse;
 import Utils.CustomFont;
-import Utils.HorseInstances;
-import Utils.LoadImageIcon;
+import Utils.Singletons.HorseInstances;
+import Utils.Sprite.LoadImageIcon;
 
 /**
  * Definition for a tab to display various different configuration options &

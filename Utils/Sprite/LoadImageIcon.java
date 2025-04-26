@@ -1,4 +1,4 @@
-package Utils;
+package Utils.Sprite;
 
 import java.io.File;
 

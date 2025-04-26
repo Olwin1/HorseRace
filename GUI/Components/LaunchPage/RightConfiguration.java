@@ -21,7 +21,7 @@ import GUI.Components.CustomInputs.SingleCharInput;
 import Primary.Horse;
 import Primary.HorseColour;
 import Utils.CustomFont;
-import Utils.HorseInstances;
+import Utils.Singletons.HorseInstances;
 
 /**
  * Singleton that can be accessed by `getInstance()`.

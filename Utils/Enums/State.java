@@ -1,4 +1,4 @@
-package Utils;
+package Utils.Enums;
 
 public enum State {
     IDLE,

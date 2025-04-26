@@ -1,6 +1,8 @@
-package Utils;
+package Utils.Singletons;
 
 import java.util.ArrayList;
+
+import Utils.HorseMover;
 
 
 /**

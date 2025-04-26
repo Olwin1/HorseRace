@@ -2,6 +2,7 @@ package Utils;
 
 
 import Primary.Horse;
+import Utils.Sprite.SpriteSwitcherPanel;
 
 public class HorseMover extends SpriteSwitcherPanel {
     private int x; // X position of the panel

@@ -8,7 +8,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
 import Primary.Horse;
-import Utils.HorseInstances;
+import Utils.Singletons.HorseInstances;
 
 /**
  * Panel to display the lanes that will be used in the race along with the

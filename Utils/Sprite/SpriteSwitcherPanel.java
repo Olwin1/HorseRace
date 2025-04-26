@@ -1,4 +1,4 @@
-package Utils;
+package Utils.Sprite;
 
 import javax.imageio.ImageIO;
 import javax.imageio.ImageReader;
@@ -6,6 +6,7 @@ import javax.imageio.stream.ImageInputStream;
 import javax.swing.*;
 
 import Primary.HorseColour;
+import Utils.Enums.State;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;

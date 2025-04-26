@@ -3,7 +3,7 @@ package Primary;
 import java.util.*;
 
 import Utils.Pair;
-import Utils.Sky;
+import Utils.Enums.Sky;
 
 /**
  * The BettingSystem class handles the betting logic for a horse racing game,

@@ -4,9 +4,9 @@ import javax.swing.*;
 
 import Utils.GameFrame;
 import Utils.Pair;
+import Utils.Enums.Sky;
 
 import java.awt.*;
-import Utils.Sky;
 
 /**
  * Simple grid class to create a grid display for during the race.

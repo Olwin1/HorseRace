@@ -4,9 +4,9 @@ import java.util.concurrent.TimeUnit;
 
 import Utils.BooleanWrapper;
 import Utils.GameFrame;
-import Utils.HorseInstances;
-import Utils.HorseMoverInstances;
-import Utils.State;
+import Utils.Enums.State;
+import Utils.Singletons.HorseInstances;
+import Utils.Singletons.HorseMoverInstances;
 
 import java.lang.Math;
 import java.util.ArrayList;

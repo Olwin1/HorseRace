@@ -15,7 +15,7 @@ import javax.swing.JPanel;
 
 import Primary.Horse;
 import Utils.CustomFont;
-import Utils.SpriteSwitcherPanel;
+import Utils.Sprite.SpriteSwitcherPanel;
 
 /**
  * Definition for a tab to display various different configuration options &
