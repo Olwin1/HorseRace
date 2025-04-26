@@ -66,6 +66,9 @@ public class PreviousWinners extends JPanel {
         // the horses into
         ArrayList<Horse> currentHorses = HorseInstances.getInstance().getHorses();
         ArrayList<Horse> orderedWinners = new ArrayList<>(currentHorses.size());
+        for(int i = 0; i < currentHorses.size(); i++) {
+            orderedWinners.add(null);
+        }
 
         // Loop through each horse and add them to an index corresponding to the
         // positions they achieved
@@ -78,7 +81,12 @@ public class PreviousWinners extends JPanel {
         }
 
         // Now loop through the participants in order
+        boolean isEmpty = true;
         for (Horse horse : orderedWinners) {
+            if(horse == null) {
+                continue;
+            }
+            isEmpty = false;
             JPanel positionEntry = new JPanel();
             positionEntry.setLayout(new BoxLayout(positionEntry, BoxLayout.X_AXIS));
 
@@ -93,7 +101,7 @@ public class PreviousWinners extends JPanel {
 
         }
         // If the winners array is of size 0 then just put no data.
-        if (orderedWinners.size() == 0) {
+        if (orderedWinners.size() == 0 || isEmpty) {
             JLabel positionText = new JLabel();
             positionText.setFont(customFont);
             positionText.setText("No data yet.");

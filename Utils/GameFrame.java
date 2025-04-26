@@ -2,6 +2,8 @@ package Utils;
 
 import javax.swing.*;
 
+import GUI.BettingPage;
+import GUI.GameGrid;
 import GUI.MainMenu;
 import Primary.Horse;
 
@@ -129,8 +131,43 @@ public class GameFrame extends JPanel {
      * scrolling.
      */
     public void endRace() {
+        // Clone existing list
+        ArrayList<Horse> horses = new ArrayList<>(HorseInstances.getInstance().horses);
+
+        // Sort horses: first by hasFallen(), then by distance (higher distance first)
+        horses.sort((h1, h2) -> {
+            if (h1.hasFallen() && !h2.hasFallen()) {
+                return 1; // h1 after h2
+            } else if (!h1.hasFallen() && h2.hasFallen()) {
+                return -1; // h1 before h2
+            } else {
+                // Both fallen or both not fallen -> sort by distance (descending)
+                return Double.compare(h2.getDistanceTravelled(), h1.getDistanceTravelled());
+            }
+        });
+
+        // Add their position scored to their history
+        for (int i = 0; i < horses.size(); i++) {
+            Horse horse = horses.get(i);
+            horse.addNewTrend(i + 1);
+        }
+
+        GameGrid gridInstance = GameGrid.getInstance(null);
+        // Reduce count by 1
+        gridInstance.decreaseRaceCount();
+        // If there are still races left then show the betting page again
+        if (gridInstance.getRaceCount() != 0) {
+            BettingPage.displayBettingPage();
+        }
+
+        // Now `horses` is sorted correctly: non-fallen sorted by distance, fallen ones
+        // at the back
+
         // Stop the timer
         timer.stop();
+
+        // Shove all horses back to start
+        clearHorses();
     }
 
     public static void main(String[] args) {
@@ -148,5 +185,11 @@ public class GameFrame extends JPanel {
         frame.setSize(800, 600);
         frame.setLocationRelativeTo(null); // Center the window
         frame.setVisible(true);
+    }
+
+    private void clearHorses() {
+        // remove all horse movers
+        ArrayList<HorseMover> horseMovers = HorseMoverInstances.getInstance().getHorseMovers();
+        horseMovers.clear();
     }
 }
