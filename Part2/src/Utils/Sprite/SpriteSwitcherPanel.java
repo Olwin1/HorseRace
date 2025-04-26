@@ -55,9 +55,12 @@ public class SpriteSwitcherPanel extends JPanel {
         saddleGifFallPath = saddlePrefix + "_fall.gif";
 
         // Load sprite animations
-        idleIcon = new AnimatedSprite(getClass().getResource(prefix + "_idle.gif").getPath(), hasSaddle, saddlePrefix + "_idle.gif", null);
-        runIcon = new AnimatedSprite(getClass().getResource(prefix + "_run.gif").getPath(), hasSaddle, saddlePrefix + "_run.gif", null);
-        fallIcon = new AnimatedSprite(getClass().getResource(fallPath).getPath(), hasSaddle, saddleGifFallPath, null);
+        idleIcon = new AnimatedSprite(getClass().getResource(prefix + "_idle.gif").getPath(), hasSaddle,
+                getClass().getResource(saddlePrefix + "_idle.gif").getPath(), null);
+        runIcon = new AnimatedSprite(getClass().getResource(prefix + "_run.gif").getPath(), hasSaddle,
+                getClass().getResource(saddlePrefix + "_run.gif").getPath(), null);
+        fallIcon = new AnimatedSprite(getClass().getResource(fallPath).getPath(), hasSaddle,
+                getClass().getResource(saddleGifFallPath).getPath(), null);
 
         // Initialize sprite display label
         spriteLabel = idleIcon;// new JLabel(idleIcon);
@@ -118,7 +121,8 @@ public class SpriteSwitcherPanel extends JPanel {
 
         // Use a timer to replace the animation with the final frame after delay
         Timer freezeTimer = new Timer(1333, e -> {
-            Image lastFrame = getLastFrame(fallPath, saddleGifFallPath);
+            Image lastFrame = getLastFrame(getClass().getResource(fallPath).getPath(),
+                    getClass().getResource(saddleGifFallPath).getPath());
             // Scale the image down to the correct size
             BufferedImage scaledFrame = AnimatedSprite.scaleImage((BufferedImage) lastFrame, 0.35);
             if (lastFrame != null) {
