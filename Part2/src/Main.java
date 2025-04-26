@@ -1,4 +1,3 @@
-
 import GUI.StartPage;
 import Primary.Horse;
 import Primary.HorseColour;
