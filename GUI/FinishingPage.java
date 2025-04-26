@@ -3,15 +3,19 @@ package GUI;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
+import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 
+import javax.swing.BoxLayout;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
 import GUI.Components.FinishingPage.FinishingPanel;
+import GUI.Components.FinishingPage.ShowWinnings;
+import Utils.CustomFont;
 import GUI.Components.BettingPage.PreviousWinners;
 
 /**
@@ -56,27 +60,32 @@ public class FinishingPage {
             gbc.gridy = 0;
             gbc.gridheight = 1;
             gbc.weightx = 0.25;
-            gbc.weighty = 1.0;
+            gbc.weighty = 0.75;
             gbc.fill = GridBagConstraints.BOTH;
             container.add(rightPanel, gbc);
 
-            // Bottom Launch Race Panel
-            JPanel bottomPanel = new JPanel();
-            bottomPanel.setLayout(new BorderLayout());
+            // Bottom Bet results
+
+            // Create a panel to put the bet input and text
+            JPanel bettingPanel = new JPanel();
+            bettingPanel.setLayout(new BoxLayout(bettingPanel, BoxLayout.Y_AXIS));
+
+            // Create a label for each of the 3 users
+            final Font bodyFont = CustomFont.getFont(14);
+            ShowWinnings.addWinningsLabel(bodyFont, bettingPanel, 1);
+            ShowWinnings.addWinningsLabel(bodyFont, bettingPanel, 2);
+            ShowWinnings.addWinningsLabel(bodyFont, bettingPanel, 3);
 
             /////////////////
             /// Panel Code //
             /////////////////
-
-            // Add button on the right of bottom UI
-            bottomPanel.add(new JPanel(), BorderLayout.LINE_END);
             gbc.gridx = 1;
             gbc.gridy = 1;
             gbc.gridheight = 1;
             gbc.weightx = 0.25;
-            gbc.weighty = 0.05;
+            gbc.weighty = 0.25;
             gbc.fill = GridBagConstraints.BOTH;
-            container.add(bottomPanel, gbc);
+            container.add(bettingPanel, gbc);
 
             frame.revalidate();
             frame.repaint();

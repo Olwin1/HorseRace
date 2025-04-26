@@ -18,11 +18,7 @@ public class Main {
         HorseInstances.getInstance().addHorse(new Horse('B', "Bob", 0.25, HorseColour.PURPLE), 2);
 
         // Display the start page
-        //StartPage startPage = new StartPage();
+        StartPage startPage = new StartPage();
 
-        UserInstances.getInstance().addUser(new User());
-        UserInstances.getInstance().addUser(new User());
-        UserInstances.getInstance().addUser(new User());
-        FinishingPage.displayFinshingPage();
     }
 }

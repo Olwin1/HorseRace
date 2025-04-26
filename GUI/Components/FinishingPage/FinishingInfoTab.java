@@ -109,16 +109,7 @@ public class FinishingInfoTab extends JPanel {
         JPanel bottomRow = new JPanel();
         bottomRow.setLayout(new BoxLayout(bottomRow, BoxLayout.X_AXIS));
 
-        // Create a panel to put the bet input and text
-        JPanel bettingPanel = new JPanel();
-        bettingPanel.setLayout(new BoxLayout(bettingPanel, BoxLayout.Y_AXIS));
 
-        // Create a label for each of the 3 users
-        ShowWinnings.addWinningsLabel(bodyFont, bettingPanel, 1);
-        ShowWinnings.addWinningsLabel(bodyFont, bettingPanel, 2);
-        ShowWinnings.addWinningsLabel(bodyFont, bettingPanel, 3);
-
-        bottomRow.add(bettingPanel);
         bottomRow.setBorder(BorderFactory.createEmptyBorder(0, 0, 5, 0));
 
         // Add the bottom row to the tab
