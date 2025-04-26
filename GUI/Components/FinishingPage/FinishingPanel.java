@@ -48,7 +48,9 @@ public class FinishingPanel extends JPanel {
         listPanel.setLayout(new BoxLayout(listPanel, BoxLayout.X_AXIS));
 
         // Scroll pane wrapping the listPanel
-        JScrollPane scrollPane = new JScrollPane(listPanel);
+        JScrollPane scrollPane = new JScrollPane(listPanel,
+                JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
+                JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         scrollPane.getHorizontalScrollBar().setUnitIncrement(16); // smoother scrolling
 
         // Adding custom panels

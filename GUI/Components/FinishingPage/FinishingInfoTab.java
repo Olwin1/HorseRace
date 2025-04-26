@@ -99,8 +99,6 @@ public class FinishingInfoTab extends JPanel {
 
         historyPanel.add(historyLabel, BorderLayout.PAGE_START);
 
-
-
         historyPanel.add(new VictoryGraph(horse), BorderLayout.CENTER);
         add(historyPanel);
 
@@ -113,19 +111,14 @@ public class FinishingInfoTab extends JPanel {
 
         // Create a panel to put the bet input and text
         JPanel bettingPanel = new JPanel();
-        bettingPanel.setLayout(new BorderLayout());
+        bettingPanel.setLayout(new BoxLayout(bettingPanel, BoxLayout.Y_AXIS));
 
         // Create a label for each of the 3 users
         ShowWinnings.addWinningsLabel(bodyFont, bettingPanel, 1);
         ShowWinnings.addWinningsLabel(bodyFont, bettingPanel, 2);
         ShowWinnings.addWinningsLabel(bodyFont, bettingPanel, 3);
 
-        JPanel victoryPanel = new JPanel();
-        victoryPanel.setLayout(new BorderLayout());
-        // Add bettingPanel to the bottom row
-        victoryPanel.add(bettingPanel, BorderLayout.LINE_START);
-        bottomRow.add(victoryPanel);
-
+        bottomRow.add(bettingPanel);
         bottomRow.setBorder(BorderFactory.createEmptyBorder(0, 0, 5, 0));
 
         // Add the bottom row to the tab
