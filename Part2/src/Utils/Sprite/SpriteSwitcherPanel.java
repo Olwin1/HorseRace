@@ -30,7 +30,7 @@ enum Colour {
  * Change the sprite by calling `setSprite`
  */
 public class SpriteSwitcherPanel extends JPanel {
-    private final String path = "./Sprites/Horse/";
+    private final String path = "/Sprites/Horse/";
     private JLabel spriteLabel;
     private AnimatedSprite idleIcon;
     private AnimatedSprite runIcon;
@@ -55,9 +55,9 @@ public class SpriteSwitcherPanel extends JPanel {
         saddleGifFallPath = saddlePrefix + "_fall.gif";
 
         // Load sprite animations
-        idleIcon = new AnimatedSprite(prefix + "_idle.gif", hasSaddle, saddlePrefix + "_idle.gif", null);
-        runIcon = new AnimatedSprite(prefix + "_run.gif", hasSaddle, saddlePrefix + "_run.gif", null);
-        fallIcon = new AnimatedSprite(fallPath, hasSaddle, saddleGifFallPath, null);
+        idleIcon = new AnimatedSprite(getClass().getResource(prefix + "_idle.gif").getPath(), hasSaddle, saddlePrefix + "_idle.gif", null);
+        runIcon = new AnimatedSprite(getClass().getResource(prefix + "_run.gif").getPath(), hasSaddle, saddlePrefix + "_run.gif", null);
+        fallIcon = new AnimatedSprite(getClass().getResource(fallPath).getPath(), hasSaddle, saddleGifFallPath, null);
 
         // Initialize sprite display label
         spriteLabel = idleIcon;// new JLabel(idleIcon);

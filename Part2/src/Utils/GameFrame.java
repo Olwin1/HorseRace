@@ -41,12 +41,12 @@ public class GameFrame extends JPanel {
 
         // Create the backdrop with scaled images and set the panel size
         try {
-            backdrop = new Backdrop("./Sprites/Backdrop/Track/top-track.png",
-                    "./Sprites/Backdrop/Track/bottom-track.png", 300, 300, 2);
+            backdrop = new Backdrop(getClass().getResource("/Sprites/Backdrop/Track/top-track.png").getPath(),
+                    getClass().getResource("/Sprites/Backdrop/Track/bottom-track.png").getPath(), 300, 300, 2);
             skyPanel = new ImagePanelLoader(
-                    String.format("./Sprites/Backdrop/Sky/sky-%s.png", sky.toString().toLowerCase()), 2);
+                    getClass().getResource(String.format("/Sprites/Backdrop/Sky/sky-%s.png", sky.toString().toLowerCase())).getPath(), 2);
             // If it is raining then add a rain sprite
-            rainSprite = sky == Sky.RAIN ? new AnimatedSprite("./Sprites/Backdrop/Sky/rain.gif", false, null, 1) : null;
+            rainSprite = sky == Sky.RAIN ? new AnimatedSprite(getClass().getResource("/Sprites/Backdrop/Sky/rain.gif").getPath(), false, null, 1) : null;
 
         } catch (FileNotFoundException e) {
             // If errors then print stacktrace

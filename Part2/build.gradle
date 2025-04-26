@@ -16,6 +16,10 @@ sourceSets {
         java {
             srcDirs = ['src']  // Look directly in the root folder for Java files
         }
+        resources {
+            srcDirs = ['src/resources']
+        }
+        
     }
 }
 

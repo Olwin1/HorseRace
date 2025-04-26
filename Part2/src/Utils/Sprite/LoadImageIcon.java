@@ -10,7 +10,7 @@ import javax.swing.ImageIcon;
 public class LoadImageIcon {
     public static ImageIcon main(String iconName) {
         // Load the desired image file
-        File imageFile = new File(String.format("./Sprites/Icons/%s.png", iconName));
+        File imageFile = new File(LoadImageIcon.class.getResource(String.format("/Sprites/Icons/%s.png", iconName)).getPath());
 
         // Create an ImageIcon instance from this image
         ImageIcon icon = new ImageIcon(imageFile.getAbsolutePath());
