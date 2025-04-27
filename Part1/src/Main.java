@@ -2,7 +2,7 @@
 public class Main {
     public static void main(String[] args) {
         // testHorse();
-        Race race = new Race(1);
+        Race race = new Race(16);
         race.addHorse(new Horse('A', "Adi", 0.5), 1);
         race.addHorse(new Horse('B', "Bob", 0.25), 2);
         race.addHorse(new Horse('C', "Cob", 0.8), 3);
